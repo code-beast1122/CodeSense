@@ -1,0 +1,3880 @@
+code_snippet,time_complexity
+"void traverse_skill_tree(int start_node, const std::unordered_map<int, std::vector<int>>& adj_list) {
+    std::unordered_set<int> visited;
+    std::queue<int> q;
+    q.push(start_node);
+    visited.insert(start_node);
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int neighbor : adj_list.at(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"uint32_t calculate_shield(uint32_t shield, uint32_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 1.5);
+}",O(1)
+"void sort_queue_by_threat_level(std::vector<RenderMesh>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const RenderMesh& a, const RenderMesh& b) {
+        return a.threat_level > b.threat_level;
+    });
+}",O(n log n)
+"void render_game_entities(Entity* entities, size_t count, Renderer& renderer) {
+    for (size_t i = 0; i < count; ++i) {
+        if (!entities[i].active) continue;
+        // animate texture index based on time
+        entities[i].tex_idx = static_cast<int>(entities[i].age * 0.1f) % entities[i].max_textures;
+        renderer.draw_sprite(entities[i].texture, entities[i].position, entities[i].tex_idx);
+        entities[i].age += 1;
+    }
+}",O(n)
+"int find_hash_key_index(const std::vector<Entity>& data, int hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void traverse_dependency_graph(int start_node, const std::unordered_map<int, std::vector<int>>& adj_list) {
+    std::unordered_set<int> visited;
+    std::queue<int> q;
+    q.push(start_node);
+    visited.insert(start_node);
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int neighbor : adj_list.at(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"float compute_shield(float shield, float delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 1.5);
+}",O(1)
+"void process_2d_heatmap(std::vector<std::vector<int>>& map_data) {
+    for (size_t y = 0; y < map_data.size(); ++y) {
+        for (size_t x = 0; x < map_data[y].size(); ++x) {
+            map_data[y][x] = apply_kernel(map_data, x, y);
+        }
+    }
+}",O(n^2)
+"void parse_config_lines(char* file_content, size_t content_size, ConfigStore& store) {
+    char* line_start = file_content;
+    for (size_t i = 0; i < content_size; ++i) {
+        if (file_content[i] == '\n' || file_content[i] == '\r') {
+            file_content[i] = '\0';
+            if (line_start < file_content + i && line_start[0] != '#') {
+                char* eq_pos = strchr(line_start, '=');
+                if (eq_pos) {
+                    *eq_pos = '\0';
+                    char* key = line_start, *val = eq_pos + 1;
+                    while (*key == ' ' || *key == '\t') key++;
+                    while (*(eq_pos - 1) == ' ' || *(eq_pos - 1) == '\t') { eq_pos--; *eq_pos = '\0'; }
+                    while (*val == ' ' || *val == '\t') val++;
+                    store.set(key, val);
+                }
+            }
+            line_start = file_content + i + 1;
+        }
+    }
+}",O(n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator *= val;
+    }
+    return accumulator;
+}",O(n)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total *= val;
+    }
+    return total;
+}",O(n)
+"void process_2d_tiles(std::vector<std::vector<int>>& map_data) {
+    for (size_t y = 0; y < map_data.size(); ++y) {
+        for (size_t x = 0; x < map_data[y].size(); ++x) {
+            map_data[y][x] = apply_kernel(map_data, x, y);
+        }
+    }
+}",O(n^2)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total *= val;
+    }
+    return total;
+}",O(n)
+"void process_2d_voxels(std::vector<std::vector<int>>& map_data) {
+    for (size_t y = 0; y < map_data.size(); ++y) {
+        for (size_t x = 0; x < map_data[y].size(); ++x) {
+            map_data[y][x] = apply_kernel(map_data, x, y);
+        }
+    }
+}",O(n^2)
+"void processSensorData(std::vector<SensorData>& data) {
+    std::sort(data.begin(), data.end(), [](const SensorData& a, const SensorData& b) {
+        return a.timestamp < b.timestamp;
+    });
+    double avg = 0;
+    for (const auto& d : data) {
+        avg += d.value;
+    }
+    avg /= data.size();
+}",O(n log n)
+"int find_next_animation_frame(const std::vector<int>& timestamps, int current_time) {
+    int left = 0, right = timestamps.size() - 1;
+    int result = timestamps.size();
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (timestamps[mid] > current_time) {
+            result = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return result;
+}",O(log n)
+"float update_health(float health, float delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 9.81);
+}",O(1)
+"double calculate_years_to_target(double principal, double rate, double target) {
+    double low = 0, high = 1000;
+    while (high - low > 1e-7) {
+        double mid = low + (high - low) / 2;
+        double amount = principal * std::pow(1 + rate, mid);
+        if (amount < target) low = mid;
+        else high = mid;
+    }
+    return high;
+}",O(log n)
+"void traverse_router_topology(int start_node, const std::unordered_map<int, std::vector<int>>& adj_list) {
+    std::unordered_set<int> visited;
+    std::queue<int> q;
+    q.push(start_node);
+    visited.insert(start_node);
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int neighbor : adj_list.at(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"void optimize_render_layers(std::vector<GameObject>& objects) {
+    for (auto& obj1 : objects) {
+        for (const auto& obj2 : objects) {
+            if (obj1.z_order == obj2.z_order && obj1.id != obj2.id) {
+                obj1.z_order += 1;
+            }
+        }
+    }
+}",O(n^2)
+"void generate_similarity_graph(const std::vector<std::string>& docs,
+                              std::vector<std::vector<int>>& adjacency) {
+    // O(n^2 * k) where k is avg token count – we label it O(n^2)
+    size_t n = docs.size();
+    adjacency.assign(n, std::vector<int>(n, 0));
+    for (size_t i = 0; i < n; ++i) {
+        std::vector<std::string> tokens_i = tokenize(docs[i]);
+        for (size_t j = i + 1; j < n; ++j) {
+            std::vector<std::string> tokens_j = tokenize(docs[j]);
+            int common = 0;
+            for (const auto& ti : tokens_i) {
+                for (const auto& tj : tokens_j) {
+                    if (ti == tj) ++common;
+                }
+            }
+            adjacency[i][j] = adjacency[j][i] = common;
+        }
+    }
+}
+",O(n^2)
+"int find_hash_key_index(const std::vector<Record>& data, int hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void sort_queue_by_distance_to_player(std::vector<RenderMesh>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const RenderMesh& a, const RenderMesh& b) {
+        return a.distance_to_player > b.distance_to_player;
+    });
+}",O(n log n)
+"void detect_network_anomalies(std::vector<Packet>& packets) {
+    for (size_t i = 0; i < packets.size(); ++i) {
+        for (size_t j = 0; j < packets.size(); ++j) {
+            if (i != j && packets[i].src_port == packets[j].dst_port && packets[i].dst_port == packets[j].src_port) {
+                if (std::abs(packets[i].timestamp - packets[j].timestamp) < 2.0) {
+                    log_potential_scan(packets[i], packets[j]);
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void evaluate_ast_dependencies(ASTNode* root, const std::unordered_map<ASTNode*, std::vector<ASTNode*>>& dependencies) {
+    std::stack<ASTNode*> s;
+    std::unordered_set<ASTNode*> processed;
+    s.push(root);
+    while (!s.empty()) {
+        ASTNode* node = s.top();
+        bool all_processed = true;
+        for (ASTNode* dep : dependencies.at(node)) {
+            if (processed.find(dep) == processed.end()) {
+                s.push(dep);
+                all_processed = false;
+                break;
+            }
+        }
+        if (all_processed) {
+            node->evaluate();
+            processed.insert(node);
+            s.pop();
+        }
+    }
+}",O(V + E)
+bool check_memory_alignment(void* ptr) { return (reinterpret_cast<uintptr_t>(ptr) & 15) == 0; },O(1)
+"int count_synonym_clusters(const std::vector<std::string>& words) {
+    int clusters = 0;
+    for (const auto& word : words) {
+        for (const auto& other : words) {
+            if (word != other && word.find(other) != std::string::npos) {
+                ++clusters;
+            }
+        }
+    }
+    return clusters / 2;
+}",O(n^2)
+"int64_t update_mana(int64_t mana, int64_t delta_time) {
+    if (mana <= 0) return 0;
+    return mana + (delta_time * 9.81);
+}",O(1)
+"size_t count_elements_less_than(const std::vector<int>& sorted_arr, int value) {
+    auto it = std::lower_bound(sorted_arr.begin(), sorted_arr.end(), value);
+    return it - sorted_arr.begin();
+}",O(log n)
+"void resolve_game_collisions(std::vector<GameObject>& objects, const std::unordered_map<int, std::vector<int>>& adjacency) {
+    std::queue<int> q;
+    std::unordered_set<int> visited;
+    for (int i = 0; i < objects.size(); ++i) {
+        if (objects[i].isColliding && visited.find(i) == visited.end()) {
+            q.push(i);
+            visited.insert(i);
+            while (!q.empty()) {
+                int current = q.front(); q.pop();
+                for (int neighbor : adjacency.at(current)) {
+                    if (visited.find(neighbor) == visited.end()) {
+                        objects[neighbor].flagForResolution = true;
+                        q.push(neighbor);
+                        visited.insert(neighbor);
+                    }
+                }
+            }
+        }
+    }
+}",O(V + E)
+"void traverse_nav_mesh(int start_node, const std::unordered_map<int, std::vector<int>>& adj_list) {
+    std::unordered_set<int> visited;
+    std::queue<int> q;
+    q.push(start_node);
+    visited.insert(start_node);
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int neighbor : adj_list.at(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"void generate_shader_combinations(const std::vector<ShaderParam>& params) {
+    for (const auto& p1 : params) {
+        for (const auto& p2 : params) {
+            if (p1.name != p2.name) {
+                // Simulate expensive shader compilation
+                for (int i = 0; i < 1000; ++i) {
+                    volatile int x = i * i;
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_z_index(std::vector<AI_Agent>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const AI_Agent& a, const AI_Agent& b) {
+        return a.z_index > b.z_index;
+    });
+}",O(n log n)
+"void verify_network_packet_patterns(const std::vector<Packet>& packets) {
+    for (size_t i = 0; i < packets.size(); ++i) {
+        for (size_t j = 0; j < packets.size(); ++j) {
+            if (packets[i].signature_matches(packets[j]) && i != j) {
+                if (packets[i].timestamp - packets[j].timestamp < 1000) {
+                    log_suspicious_activity(packets[i], packets[j]);
+                    update_threat_model(packets[i].source_ip);
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void analyze_financial_data(std::vector<CurrencyPair>& pairs) {
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        for (size_t j = 0; j < pairs.size(); ++j) {
+            if (i != j && pairs[i].currency_a == pairs[j].currency_b && pairs[i].currency_b == pairs[j].currency_a) {
+                double spread = std::abs(pairs[i].price - pairs[j].price);
+                if (spread > 0.02) {
+                    log_arbitrage_opportunity(pairs[i], pairs[j]);
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void process_events_chronologically(std::vector<Event>& events) {
+    std::stable_sort(events.begin(), events.end(), [](const Event& a, const Event& b) {
+        return a.timestamp < b.timestamp;
+    });
+    for(auto& ev : events) { dispatch(ev); }
+}",O(n log n)
+"int compute_log2_floor(unsigned int v) { static const int lookup[16] = {0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4}; int shift = (v & 0xFFFF0000) ? 16 : 0; v >>= shift; return lookup[v] + shift; }",O(1)
+"int find_target_id_index(const std::vector<Node>& data, int target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void render_scene_graph(const Node* root) {
+    std::stack<const Node*> stack;
+    stack.push(root);
+    while (!stack.empty()) {
+        const Node* node = stack.top();
+        stack.pop();
+        apply_transformation(node->transform);
+        for (const auto& child : node->children) {
+            stack.push(child.get());
+        }
+    }
+}",O(V + E)
+"uint32_t adjust_shield(uint32_t shield, uint32_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 1.5);
+}",O(1)
+"int find_hash_key_index(const std::vector<Record>& data, long long hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void resolve_shader_dependencies(std::vector<Shader>& shaders, const std::unordered_map<int, std::vector<int>>& dependencies) {
+    std::unordered_set<int> resolved;
+    std::queue<int> q;
+    for (int i = 0; i < shaders.size(); ++i) {
+        if (dependencies.find(i) == dependencies.end() || dependencies.at(i).empty()) {
+            q.push(i);
+            resolved.insert(i);
+        }
+    }
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        shaders[current].compile();
+        for (int i = 0; i < shaders.size(); ++i) {
+            auto& deps = dependencies.at(i);
+            if (std::find(deps.begin(), deps.end(), current) != deps.end() && resolved.find(i) == resolved.end()) {
+                deps.erase(std::remove(deps.begin(), deps.end(), current), deps.end());
+                if (deps.empty()) {
+                    q.push(i);
+                    resolved.insert(i);
+                }
+            }
+        }
+    }
+}",O(V + E)
+"void process_physics(){ // O(log n) auto it=std::lower_bound(entities.begin(),entities.end(),target_id); }",O(log n)
+"int find_target_id_index(const std::vector<Entity>& data, long long target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"float update_health(float health, float delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 1.5);
+}",O(1)
+"void sort_enemy_targets_by_threat(std::vector<Enemy>& enemies) {
+    std::sort(enemies.begin(), enemies.end(), [](const Enemy& a, const Enemy& b) {
+        return (a.damage_output * a.aggression_factor) > (b.damage_output * b.aggression_factor);
+    });
+    for (const auto& enemy : enemies) {
+        issue_attack_command(enemy);
+    }
+}",O(n log n)
+"void hash_passwords(const std::vector<std::string>& passwords) {
+    for (const auto& password : passwords) {
+        hash_password(password);
+    }
+}",O(n)
+"void clear_buffer(volatile uint32_t* buffer, size_t size) { for (size_t i = 0; i < size; ++i) buffer[i] = 0; }",O(1)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator += val;
+    }
+    return accumulator;
+}",O(n)
+"void sort_queue_by_threat_level(std::vector<AI_Agent>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const AI_Agent& a, const AI_Agent& b) {
+        return a.threat_level > b.threat_level;
+    });
+}",O(n log n)
+"void update_analytics_dashboard_timeseries(std::vector<DataPoint>& data) {
+    std::sort(data.begin(), data.end(), [](const DataPoint& a, const DataPoint& b) {
+        return a.timestamp < b.timestamp;
+    });
+    for (const auto& point : data) {
+        dashboard.add_point(point.timestamp, point.value);
+    }
+}",O(n log n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total -= val;
+    }
+    return total;
+}",O(n)
+"float adjust_stamina(float stamina, float delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 2.0);
+}",O(1)
+"int longest_common_substring(const std::string& s1, const std::string& s2) {
+    int max_len = 0;
+    for (size_t i = 0; i < s1.length(); ++i) {
+        for (size_t j = 0; j < s2.length(); ++j) {
+            int len = 0;
+            while (i + len < s1.length() && j + len < s2.length() && s1[i + len] == s2[j + len]) {
+                len++;
+                max_len = std::max(max_len, len);
+            }
+        }
+    }
+    return max_len;
+}",O(n^2)
+"int find_target_id_index(const std::vector<Record>& data, int target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void pathfind_astar(Node& start, Node& goal) {
+    std::vector<Node*> open_list;
+    std::unordered_set<Node*> closed_list;
+    start.g_cost = 0;
+    start.h_cost = heuristic(start, goal);
+    start.f_cost = start.g_cost + start.h_cost;
+    open_list.push_back(&start);
+    while (!open_list.empty()) {
+        Node* current = open_list[0];
+        int current_idx = 0;
+        for (size_t i = 1; i < open_list.size(); i++) {
+            if (open_list[i]->f_cost < current->f_cost) {
+                current = open_list[i];
+                current_idx = i;
+            }
+        }
+        open_list.erase(open_list.begin() + current_idx);
+        closed_list.insert(current);
+        if (current == &goal) {
+            reconstruct_path(current);
+            return;
+        }
+        for (Node* neighbor : current->neighbors) {
+            if (closed_list.find(neighbor) != closed_list.end()) continue;
+            float tentative_g = current->g_cost + neighbor->cost;
+            bool in_open = false;
+            for (auto node : open_list) {
+                if (node == neighbor) {
+                    in_open = true;
+                    if (tentative_g < neighbor->g_cost) {
+                        neighbor->parent = current;
+                        neighbor->g_cost = tentative_g;
+                        neighbor->f_cost = neighbor->g_cost + neighbor->h_cost;
+                    }
+                    break;
+                }
+            }
+            if (!in_open) {
+                neighbor->parent = current;
+                neighbor->g_cost = tentative_g;
+                neighbor->f_cost = neighbor->g_cost + neighbor->h_cost;
+                open_list.push_back(neighbor);
+            }
+        }
+    }
+    path_found = false;
+}",O(n)
+"void processFinancialTrades(std::vector<Trade>& trades) {
+    std::sort(trades.begin(), trades.end(), [](const Trade& a, const Trade& b) {
+        return a.price > b.price;
+    });
+    double profit = 0;
+    for (size_t i = 0; i < trades.size() / 2; ++i) {
+        profit += trades[i].price * trades[i].quantity * 0.1;
+    }
+}",O(n log n)
+"float update_health(float health, float delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 0.98);
+}",O(1)
+"void garbage_collect_objects(std::vector<Object*> objects) {
+    size_t i = 0;
+    while (i < objects.size()) {
+        if (!objects[i]->is_referenced()) {
+            delete objects[i];
+            objects.erase(objects.begin() + i);
+        }
+        else {
+            ++i;
+        }
+    }
+}",O(n)
+"void check_network_connection_redundancy(const vector<Connection>& connections) {
+    for (size_t i = 0; i < connections.size(); ++i) {
+        for (size_t j = 0; j < connections.size(); ++j) {
+            if (i == j) continue;
+            if (connections[i].source == connections[j].destination &&
+                connections[j].source == connections[i].destination) {
+                cout << ""Potential network loop detected"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"void validate_url_parameters(const std::vector<std::string>& params) {
+    for (size_t i = 0; i < params.size(); ++i) {
+        for (size_t j = 0; j < params.size(); ++j) {
+            if (i != j && params[i].find(params[j]) != std::string::npos) {
+                throw std::runtime_error(""Nested parameter conflict"");
+            }
+        }
+    }
+}",O(n^2)
+"void analyze_network_logs(const std::vector<LogEntry>& logs) {
+    for (const auto& l1 : logs) {
+        for (const auto& l2 : logs) {
+            if (l1.ip == l2.ip && l1.timestamp != l2.timestamp) {
+                // Simulate complex correlation logic
+                for (int i = 0; i < 100; ++i) {
+                    // Some busy work to make it look real
+                }
+            }
+        }
+    }
+}",O(n^2)
+"inline void toggle_debug_bit(uint16_t& flags, unsigned bit) {
+    // Flip a debug flag in a 16‑bit word – single machine instruction
+    flags ^= static_cast<uint16_t>(1u << (bit & 15));
+}",O(1)
+"void process_2d_pixels(std::vector<std::vector<int>>& map_data) {
+    for (size_t y = 0; y < map_data.size(); ++y) {
+        for (size_t x = 0; x < map_data[y].size(); ++x) {
+            map_data[y][x] = apply_kernel(map_data, x, y);
+        }
+    }
+}",O(n^2)
+"unsigned int hash_combine(unsigned int seed, unsigned int val) { return seed ^ (val + 0x9e3779b9 + (seed << 6) + (seed >> 2)); }",O(1)
+"std::vector<std::pair<std::string, std::string>> find_similar_words(const std::vector<std::string>& dictionary) {
+    std::vector<std::pair<std::string, std::string>> matches;
+    for (size_t i = 0; i < dictionary.size(); ++i) {
+        for (size_t j = i + 1; j < dictionary.size(); ++j) {
+            int edits = levenshtein_distance(dictionary[i], dictionary[j]);
+            if (edits <= 2) {
+                matches.emplace_back(dictionary[i], dictionary[j]);
+            }
+        }
+    }
+    return matches;
+}",O(n^2)
+"size_t adjust_stamina(size_t stamina, size_t delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 1.5);
+}",O(1)
+"int64_t adjust_shield(int64_t shield, int64_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 1.5);
+}",O(1)
+"void query_database(const std::string& key_prefix) {
+    std::vector<DBRecord> results;
+    for (const auto& record : database_index) {
+        if (record.key.find(key_prefix) == 0 && record.key != key_prefix) {
+            results.push_back(record);
+            if (results.size() >= MAX_RESULTS) break;
+        }
+    }
+    query_cache[key_prefix] = results;
+}",O(n)
+"std::vector<float> calculate_fft_frequencies(const std::vector<std::vector<int>>& samples) {
+    std::vector<float> frequencies;
+    for (const auto& channel : samples) {
+        std::vector<std::complex<float>> fft_data(channel.size());
+        // Simplified FFT-like processing with sorting
+        std::vector<float> magnitudes(channel.size());
+        for (size_t i = 0; i < channel.size(); ++i) {
+            magnitudes[i] = std::abs(fft_data[i]);
+        }
+        std::sort(magnitudes.begin(), magnitudes.end(), std::greater<float>());
+        frequencies.insert(frequencies.end(), magnitudes.begin(), magnitudes.begin() + 10);
+    }
+    std::sort(frequencies.begin(), frequencies.end(), std::greater<float>());
+    return frequencies;
+}",O(n log n)
+"void scan_network_vulnerabilities(const NetworkGraph& graph, const std::string& start_ip) {
+    std::stack<std::string> stack;
+    std::unordered_set<std::string> scanned;
+    stack.push(start_ip);
+    while (!stack.empty()) {
+        std::string current_ip = stack.top();
+        stack.pop();
+        if (scanned.find(current_ip) != scanned.end()) continue;
+        scanned.insert(current_ip);
+        for (const auto& neighbor : graph.get_neighbors(current_ip)) {
+            if (scanned.find(neighbor) == scanned.end()) {
+                check_vulnerability(neighbor);
+                stack.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator -= val;
+    }
+    return accumulator;
+}",O(n)
+"float sensor_calibrate_reading(uint16_t raw_adc, const std::vector<uint16_t>& sorted_adc_values, const std::vector<float>& calibrated_values) {
+    size_t n = sorted_adc_values.size();
+    if (n == 0) return 0.0f;
+    if (raw_adc <= sorted_adc_values[0]) return calibrated_values[0];
+    if (raw_adc >= sorted_adc_values[n-1]) return calibrated_values[n-1];
+    
+    int low = 0, high = n - 1;
+    int idx = 0;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_adc_values[mid] == raw_adc) {
+            return calibrated_values[mid];
+        } else if (sorted_adc_values[mid] < raw_adc) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    idx = high;
+    float t = (raw_adc - sorted_adc_values[idx]) / (float)(sorted_adc_values[idx+1] - sorted_adc_values[idx]);
+    return calibrated_values[idx] + t * (calibrated_values[idx+1] - calibrated_values[idx]);
+}",O(log n)
+"void validate_transaction_batch(const std::vector<Transaction>& transactions) {
+    for (size_t i = 0; i < transactions.size(); ++i) {
+        if (!transactions[i].is_valid_format()) continue;
+        for (size_t j = i + 1; j < transactions.size(); ++j) {
+            if (transactions[i].id == transactions[j].id ||
+                (transactions[i].amount == transactions[j].amount &&
+                 transactions[i].merchant_id == transactions[j].merchant_id &&
+                 abs(transactions[i].timestamp - transactions[j].timestamp) < 300)) {
+                trigger_fraud_alert(transactions[i].id, transactions[j].id);
+                increment_security_counter();
+            }
+        }
+    }
+}",O(n^2)
+"std::vector<std::string> parse_csv_line(const std::string& line, char delimiter) {
+    std::vector<std::string> fields;
+    std::string current;
+    for (char c : line) {
+        if (c == delimiter || c == '\n') {
+            fields.push_back(current);
+            current.clear();
+        } else if (c != '\r') {
+            current += c;
+        }
+    }
+    if (!current.empty()) fields.push_back(current);
+    return fields;
+}",O(n)
+"void analyze_log_correlations(const std::vector<LogEntry>& logs) {
+    for (size_t i = 0; i < logs.size(); ++i) {
+        for (size_t j = i + 1; j < logs.size(); ++j) {
+            if (logs[i].error_code == logs[j].error_code &&
+                logs[i].module == logs[j].module) {
+                int time_diff = logs[j].timestamp - logs[i].timestamp;
+                if (time_diff < 5000 && time_diff > 0) {
+                    log_correlation_pattern(logs[i], logs[j]);
+                    if (++correlation_counter > threshold) {
+                        trigger_system_health_alert();
+                    }
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_threat_level(std::vector<NetworkPacket>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const NetworkPacket& a, const NetworkPacket& b) {
+        return a.threat_level > b.threat_level;
+    });
+}",O(n log n)
+"void synchronize_sensor_readings(const std::vector<SensorData>& data) {
+    for (const auto& sensor1 : data) {
+        for (const auto& sensor2 : data) {
+            if (sensor1.id == sensor2.id) continue;
+            float variance = fabs(sensor1.value - sensor2.value);
+            if (variance > sensor1.tolerance && variance > sensor2.tolerance) {
+                mark_sensor_disagreement(sensor1.id, sensor2.id);
+                if (data.size() > 100) {
+                    request_calibration();
+                }
+            }
+        }
+    }
+}",O(n^2)
+"struct Waypoint {
+    double x, y;
+};
+std::vector<Waypoint> optimize_route(const std::vector<Waypoint>& waypoints) {
+    std::vector<std::pair<double, Waypoint>> distances;
+    Waypoint start = waypoints[0];
+    for (const auto& wp : waypoints) {
+        if (&wp == &start) continue;
+        double dist = std::sqrt(std::pow(start.x - wp.x, 2) + std::pow(start.y - wp.y, 2));
+        distances.emplace_back(dist, wp);
+    }
+    std::sort(distances.begin(), distances.end(), 
+        [](const auto& a, const auto& b) { return a.first < b.first; });
+    std::vector<Waypoint> sorted;
+    sorted.push_back(start);
+    for (const auto& p : distances) sorted.push_back(p.second);
+    return sorted;
+}",O(n log n)
+"void find_duplicate_rows(std::vector<std::vector<std::string>>& csv_data, std::vector<size_t>& duplicates) {
+    for (size_t i = 0; i < csv_data.size(); ++i) {
+        for (size_t j = i + 1; j < csv_data.size(); ++j) {
+            if (csv_data[i].size() == csv_data[j].size()) {
+                bool match = true;
+                for (size_t k = 0; k < csv_data[i].size(); ++k) {
+                    if (csv_data[i][k] != csv_data[j][k]) { match = false; break; }
+                }
+                if (match) duplicates.push_back(i);
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_priority(std::vector<AI_Agent>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const AI_Agent& a, const AI_Agent& b) {
+        return a.priority > b.priority;
+    });
+}",O(n log n)
+"void apply_edge_detection(Image& image) {
+    for (int y = 1; y < image.height - 1; ++y) {
+        for (int x = 1; x < image.width - 1; ++x) {
+            int sum_x = 0, sum_y = 0;
+            for (int dy = -1; dy <= 1; ++dy) {
+                for (int dx = -1; dx <= 1; ++dx) {
+                    int pixel = image.get_pixel(x + dx, y + dy);
+                    sum_x += pixel * sobel_x[dy + 1][dx + 1];
+                    sum_y += pixel * sobel_y[dy + 1][dx + 1];
+                }
+            }
+            image.set_edge(x, y, std::sqrt(sum_x * sum_x + sum_y * sum_y));
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_priority(std::vector<NetworkPacket>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const NetworkPacket& a, const NetworkPacket& b) {
+        return a.priority > b.priority;
+    });
+}",O(n log n)
+"void sort_queue_by_threat_level(std::vector<PhysicsBody>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const PhysicsBody& a, const PhysicsBody& b) {
+        return a.threat_level > b.threat_level;
+    });
+}",O(n log n)
+"void flood_fill_ascii_art(std::vector<std::string>& canvas, int x, int y, char target, char replacement) {
+    // naive recursive flood fill that may revisit cells O(n^2) in worst case
+    int h = canvas.size();
+    int w = h ? canvas[0].size() : 0;
+    if (x < 0 || y < 0 || x >= w || y >= h) return;
+    if (canvas[y][x] != target) return;
+    canvas[y][x] = replacement;
+    // four directions – each call scans neighbours again → quadratic over area
+    flood_fill_ascii_art(canvas, x+1, y, target, replacement);
+    flood_fill_ascii_art(canvas, x-1, y, target, replacement);
+    flood_fill_ascii_art(canvas, x, y+1, target, replacement);
+    flood_fill_ascii_art(canvas, x, y-1, target, replacement);
+}
+",O(n^2)
+"void merge_free_blocks(std::vector<Block>& blocks) {
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        if (blocks[i].free) {
+            for (size_t j = i + 1; j < blocks.size(); ++j) {
+                if (blocks[j].free && blocks[i].end() == blocks[j].start()) {
+                    blocks[i].size += blocks[j].size;
+                    blocks.erase(blocks.begin() + j--);
+                }
+            }
+        }
+    }
+}",O(n)
+"void filter_query_results(QueryResult* results, int count, FilterParams params) {
+    int write_idx = 0;
+    for (int i = 0; i < count; ++i) {
+        bool keep = true;
+        if (params.min_age > 0 && results[i].timestamp < params.min_age) keep = false;
+        if (params.category_filter && results[i].category != params.category_filter) keep = false;
+        if (params.min_score_set && results[i].score < params.min_score) keep = false;
+        if (keep) {
+            if (write_idx != i) results[write_idx] = results[i];
+            ++write_idx;
+        }        
+    }
+    results_filtered_count = write_idx;
+}",O(n)
+"void update_traffic_lights(const std::vector<TrafficSensor>& sensors) {
+    std::deque<SensorId> q;
+    std::unordered_map<SensorId, bool> processed;
+    q.push_back(sensors[0].id);
+    processed[sensors[0].id] = true;
+    while (!q.empty()) {
+        auto id = q.front(); q.pop_front();
+        auto& sensor = get_sensor(id);
+        sensor.update_light_state();
+        for (const auto& neighbor : sensor.connected_sensors) {
+            if (!processed[neighbor.id]) {
+                processed[neighbor.id] = true;
+                q.push_back(neighbor.id);
+            }
+        }
+    }
+}",O(V + E)
+"std::vector<std::vector<char>> generate_anagrams(const std::string& input) {
+    std::vector<std::vector<char>> results;
+    std::vector<char> chars(input.begin(), input.end());
+    for (size_t i = 0; i < factorial(chars.size()); ++i) {
+        std::vector<char> perm = chars;
+        for (size_t j = 0; j < chars.size(); ++j) {
+            std::swap(perm[0], perm[j]);
+            for (size_t k = j + 1; k < chars.size(); ++k) {
+                if (perm[k] != perm[0]) {
+                    std::swap(perm[0], perm[k]);
+                }
+            }
+        }
+        results.push_back(perm);
+    }
+    return results;
+}",O(n^2)
+"uint32_t calculate_velocity(uint32_t velocity, uint32_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 2.0);
+}",O(1)
+"void render_game_frame(std::vector<Renderable*>& objects, Camera* camera) {
+    struct CompareDepth {
+        Camera* cam;
+        bool operator()(Renderable* a, Renderable* b) {
+            float dist_a = glm::distance(cam->position, a->get_position());
+            float dist_b = glm::distance(cam->position, b->get_position());
+            return dist_a > dist_b; // Closer objects first
+        }
+    };
+    std::sort(objects.begin(), objects.end(), CompareDepth{camera});
+    for (auto obj : objects) {
+        if (obj->is_visible()) {
+            obj->render();
+        }
+    }
+    // Clean up any objects that might have been marked for deletion during rendering
+    objects.erase(std::remove_if(objects.begin(), objects.end(), [](Renderable* o) {
+        return o->marked_for_deletion;
+    }), objects.end());
+}",O(n log n)
+"void render_particles() {
+    static float particle_buffer[1024][3];
+    int count = 0;
+    for (const auto& emitter : particle_emitters) {
+        if (emitter.active) {
+            for (int i = 0; i < emitter.particle_count; i++) {
+                particle_buffer[count][0] = emitter.particles[i].position.x;
+                particle_buffer[count][1] = emitter.particles[i].position.y;
+                particle_buffer[count][2] = emitter.particles[i].position.z;
+                count++;
+                if (count >= 1024) break;
+            }
+        }
+    }
+    glBufferSubData(GL_ARRAY_BUFFER, 0, count * sizeof(float) * 3, particle_buffer);
+    glDrawArrays(GL_POINTS, 0, count);
+}",O(n)
+"uint32_t generate_session_id_fast(uint64_t timestamp, uint32_t user_id) { return static_cast<uint32_t>(timestamp ^ (user_id << 16) ^ 0x5EED); }",O(1)
+"bool check_network_packet_checksum(const uint8_t* buf, size_t len) { if (len < 4) return false; uint32_t checksum = 0; for(int i=0; i<4; ++i) checksum ^= buf[i]; return checksum == 0xDEADBEEF; }",O(1)
+bool is_valid_utf8_lead(unsigned char b) { return (b & 0xC0) != 0x80; },O(1)
+"void update_inventory(std::vector<Item>& items) {
+    for (size_t i = 0; i < items.size(); ++i) {
+        if (items[i].quantity <= 0) {
+            items.erase(items.begin() + i--);
+            continue;
+        }
+        if (items[i].expires_in_days > 0) {
+            items[i].expires_in_days--;
+        }
+        items[i].last_used = std::chrono::steady_clock::now();
+    }
+}",O(n)
+"void detect_overlapping_events(const vector<pair<DateTime, DateTime>>& events) {
+    for (size_t i = 0; i < events.size(); ++i) {
+        for (size_t j = 0; j < events.size(); ++j) {
+            if (i == j) continue;
+            DateTime start = max(events[i].first, events[j].first);
+            DateTime end = min(events[i].second, events[j].second);
+            if (start < end) {
+                cout << ""Overlapping events: "" << i << "" and "" << j << endl;
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_distance_to_player(std::vector<PhysicsBody>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const PhysicsBody& a, const PhysicsBody& b) {
+        return a.distance_to_player > b.distance_to_player;
+    });
+}",O(n log n)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator *= val;
+    }
+    return accumulator;
+}",O(n)
+"void process_audio_graph(AudioNode& root) {
+    std::stack<AudioNode*> s;
+    std::unordered_map<AudioNode*, bool> processed;
+    s.push(&root);
+    while (!s.empty()) {
+        auto node = s.top(); s.pop();
+        if (!processed[node]) {
+            processed[node] = true;
+            node->pull_input_buffers();
+            for (auto& child : node->outputs) {
+                s.push(child.target_node);
+            }
+        }
+    }
+}",O(V + E)
+"int find_vertex_index_index(const std::vector<Entity>& data, size_t vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total += val;
+    }
+    return total;
+}",O(n)
+"size_t find_word_position(const std::vector<std::string>& dictionary,const std::string& word){auto it=std::lower_bound(dictionary.begin(),dictionary.end(),word);return it!=dictionary.end() && *it==word ? static_cast<size_t>(it-dictionary.begin()) : std::string::npos; // O(log n)}",O(log n)
+"#include <string>
+#include <vector>
+#include <algorithm>
+
+// Merge a comma-separated list of tags into a sorted vector of unique tags in O(log n)
+void mergeTags(const std::string& newTags, std::vector<std::string>& existingTags) {
+    // Split newTags into a temporary vector
+    std::vector<std::string> temp;
+    size_t start = 0, pos = 0;
+    while ((pos = newTags.find(',', start)) != std::string::npos) {
+        temp.push_back(newTags.substr(start, pos - start));
+        start = pos + 1;
+    }
+    temp.push_back(newTags.substr(start));
+
+    // Ensure existingTags is sorted and unique
+    std::sort(existingTags.begin(), existingTags.end());
+    existingTags.erase(std::unique(existingTags.begin(), existingTags.end()), existingTags.end());
+
+    for (const auto& tag : temp) {
+        // Binary search insertion point
+        auto it = std::lower_bound(existingTags.begin(), existingTags.end(), tag);
+        if (it == existingTags.end() || *it != tag) {
+            existingTags.insert(it, tag); // log n for search, O(n) for insertion but rarely triggered
+        }
+    }
+}
+",O(log n)
+"void apply_grayscale_filter(int* pixels, int width, int height) { for(int y=0; y<height; y++) { uint32_t* row = (uint32_t*)(pixels + y*width*4); for(int x=0; x<width; x++) { uint8_t avg = ((row[x]>>16)&0xFF + ((row[x]>>8)&0xFF) + (row[x]&0xFF))/3; row[x] = (avg<<16) | (avg<<8) | avg; } } }",O(1)
+"void process_audio_cross_correlations(const vector<float>& samples) {
+    const int window_size = 100;
+    for (size_t i = 0; i < samples.size() - window_size; ++i) {
+        for (size_t j = i + 1; j < samples.size() - window_size; ++j) {
+            float correlation = 0.0f;
+            for (int k = 0; k < window_size; ++k) {
+                correlation += samples[i + k] * samples[j + k];
+            }
+            if (correlation > 0.8f) {
+                cout << ""Similar audio patterns detected"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"int find_target_id_index(const std::vector<Record>& data, long long target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void process_physics_collisions(std::vector<CollisionEvent>& events) {
+    std::sort(events.begin(), events.end(), [](const CollisionEvent& a, const CollisionEvent& b) {
+        return a.timestamp < b.timestamp;
+    });
+    for (const auto& event : events) {
+        simulate_collision_response(event);
+        update_physics_timestep(event.new_time);
+    }
+}",O(n log n)
+"size_t update_position(size_t position, size_t delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 0.98);
+}",O(1)
+"size_t compute_velocity(size_t velocity, size_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 1.5);
+}",O(1)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double result = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) result -= val;
+    }
+    return result;
+}",O(n)
+"void process_game_entities(std::vector<Entity>& entities) {
+    for (auto& entity : entities) {
+        entity.update_health();
+        entity.position.x += entity.velocity.x * get_tick_time();
+        collision_check(entity);
+    }
+}",O(n)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator *= val;
+    }
+    return accumulator;
+}",O(n)
+"int find_hash_key_index(const std::vector<Entity>& data, long long hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"float compute_velocity(float velocity, float delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 0.98);
+}",O(1)
+"void cleanup_temporary_files(const FileNode& root) {
+    std::stack<const FileNode*> s;
+    std::unordered_map<const FileNode*, bool> visited;
+    s.push(&root);
+    while (!s.empty()) {
+        auto node = s.top(); s.pop();
+        if (!visited[node]) {
+            visited[node] = true;
+            if (node->is_temp()) node->delete_async();
+            for (const auto& child : node->children) {
+                s.push(&child);
+            }
+        }
+    }
+}",O(V + E)
+"double update_velocity(double velocity, double delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 1.5);
+}",O(1)
+"void detect_duplicate_files(const std::vector<std::string>& filenames) {
+    for (size_t i = 0; i < filenames.size(); ++i) {
+        uintmax_t size_i = std::filesystem::file_size(filenames[i]);
+        for (size_t j = i + 1; j < filenames.size(); ++j) {
+            if (size_i == std::filesystem::file_size(filenames[j])) {
+                std::string hash_i = compute_md5(filenames[i]);
+                std::string hash_j = compute_md5(filenames[j]);
+                if (hash_i == hash_j) {
+                    logger->warn(""Duplicate file detected: {} and {}"", filenames[i], filenames[j]);
+                    if (!config.silent_mode) {
+                        play_alert_sound();
+                    }
+                }
+            }
+        }
+    }
+}",O(n^2)
+"size_t update_stamina(size_t stamina, size_t delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 9.81);
+}",O(1)
+char fast_to_hex(uint8_t val) { return (val < 10) ? (val + '0') : (val - 10 + 'A'); },O(1)
+"void apply_gravity_to_rigid_body(RigidBody& body) {
+    if (!body.is_static) {
+        body.velocity.y -= 9.81 * get_delta_time();
+    }
+}",O(1)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double result = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) result += val;
+    }
+    return result;
+}",O(n)
+"void process_web_server_logs(const vector<string>& logs) {
+    for (size_t i = 0; i < logs.size(); ++i) {
+        for (size_t j = 0; j < logs.size(); ++j) {
+            if (i == j) continue;
+            if (logs[i].find(logs[j]) != string::npos) {
+                cerr << ""Potential log contamination detected"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"void process_events(Event* events, size_t count, EventQueue& queue) {
+    for (size_t i = 0; i < count; ++i) {
+        switch (events[i].type) {
+            case EventType::KEY_PRESS: queue.handle_key(events[i].key);
+            case EventType::MOUSE_MOVE: queue.handle_mouse(events[i].mouse_x, events[i].mouse_y);
+            case EventType::NETWORK_PACKET: queue.enqueue_packet(events[i].packet_data);
+        }
+        events[i].processed = true;
+    }
+}",O(n)
+"void render_visible_objects(std::vector<GameObject>& objects, const Camera& camera) {
+    std::sort(objects.begin(), objects.end(), [&camera](const GameObject& a, const GameObject& b) {
+        float dist_a = (a.position - camera.position).LengthSquared();
+        float dist_b = (b.position - camera.position).LengthSquared();
+        return dist_a > dist_b;
+    });
+    for (const auto& obj : objects) {
+        if (!is_occluded(obj, camera)) {
+            render_object(obj);
+        }
+    }
+}",O(n log n)
+"void render_game_lights(vector<Light>& lights) {
+    for (auto& light1 : lights) {
+        for (auto& light2 : lights) {
+            if (&light1 == &light2) continue;
+            float dx = light1.x - light2.x;
+            float dy = light1.y - light2.y;
+            float distance_sq = dx*dx + dy*dy;
+            if (distance_sq < 100.0f) {
+                cout << ""Light interference detected"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"int adjust_shield(int shield, int delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 9.81);
+}",O(1)
+"int find_target_id_index(const std::vector<Record>& data, size_t target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void validate_user_input(const std::map<std::string, std::string>& input) {
+    static const std::regex email_regex(R""(\w+@\w+\.\w+)"");
+    static const std::regex phone_regex(R""(\d{3}-\d{3}-\d{4})"");
+    for (const auto& field : input) {
+        if (field.first == ""email"" && !std::regex_match(field.second, email_regex)) {
+            validation_errors.push_back(""Invalid email format"");
+        }
+        if (field.first == ""phone"" && !std::regex_match(field.second, phone_regex)) {
+            validation_errors.push_back(""Invalid phone format"");
+        }
+        if (field.first == ""age"" && (std::stoi(field.second) < 18 || std::stoi(field.second) > 120)) {
+            validation_errors.push_back(""Age must be between 18 and 120"");
+        }
+    }
+}",O(n)
+"int64_t calculate_shield(int64_t shield, int64_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 9.81);
+}",O(1)
+"void render_tilemap_with_overdraw(std::vector<std::vector<Tile>>& map, Renderer& r) {
+    // Each tile may draw over previous ones – naive O(n^2) over total tiles
+    int rows = map.size();
+    int cols = rows ? map[0].size() : 0;
+    for (int y = 0; y < rows; ++y) {
+        for (int x = 0; x < cols; ++x) {
+            // draw current tile
+            r.drawTile(map[y][x], x, y);
+            // overdraw neighbours to fake lighting – another full scan per tile
+            for (int dy = -1; dy <= 1; ++dy) {
+                for (int dx = -1; dx <= 1; ++dx) {
+                    int ny = y + dy, nx = x + dx;
+                    if (ny>=0 && nx>=0 && ny<rows && nx<cols) {
+                        r.blendTile(map[ny][nx], nx, ny, 0.5f);
+                    }
+                }
+            }
+        }
+    }
+}
+",O(n^2)
+"void generate_audio_wave(float* buffer, int samples) { for(int i=0; i<samples; i++) buffer[i] = sin(i*0.01f) * (i%3==0?0.5:1.0); }",O(1)
+"int parse_packet_header(unsigned char* buffer, size_t buffer_size, PacketInfo& out) {
+    if (buffer_size < 21) return -1;
+    out.version = buffer[0];
+    out.flags = buffer[1];
+    out.payload_len = (buffer[2] << 8) | buffer[3];
+    out.sequence = static_cast<uint32_t>(buffer[4]) << 24 |
+                   static_cast<uint32_t>(buffer[5]) << 16 |
+                   static_cast<uint32_t>(buffer[6]) << 8 |
+                   static_cast<uint32_t>(buffer[7]);
+    for (int i = 8; i < 16; ++i) {
+        out.checksum = (out.checksum << 8) | buffer[i];
+    }
+    for (int i = 0; i < 5; ++i) {
+        out.reserved[i] = buffer[16 + i];
+    }
+    return 21; // header size
+}",O(n)
+"int ai_find_closest_node_x(float player_x, const std::vector<float>& sorted_node_x_coords, const std::vector<int>& node_ids) {
+    int n = sorted_node_x_coords.size();
+    if (n == 0) return -1;
+    if (player_x <= sorted_node_x_coords[0]) return node_ids[0];
+    if (player_x >= sorted_node_x_coords[n-1]) return node_ids[n-1];
+    
+    int low = 0, high = n - 1;
+    int closest_idx = 0;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_node_x_coords[mid] == player_x) {
+            return node_ids[mid];
+        } else if (sorted_node_x_coords[mid] < player_x) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    float dist_high = player_x - sorted_node_x_coords[high];
+    float dist_low = sorted_node_x_coords[low] - player_x;
+    closest_idx = (dist_high <= dist_low) ? high : low;
+    return node_ids[closest_idx];
+}",O(log n)
+"void optimize_memory_layout(float* data, int size) { for(int i=0; i<size; i++) data[i] = ((float)i + data[i]) * 0.001f; }",O(1)
+"bool has_circular_dependency(int node, std::unordered_map<int, std::vector<int>>& graph, std::unordered_set<int>& visited, std::unordered_set<int>& recStack) {
+    if(!visited.count(node)) {
+        visited.insert(node);
+        recStack.insert(node);
+        for(int neighbor : graph[node]) {
+            if(!visited.count(neighbor) && has_circular_dependency(neighbor, graph, visited, recStack))
+                return true;
+            else if(recStack.count(neighbor))
+                return true;
+        }
+    }
+    recStack.erase(node);
+    return false;
+}",O(V + E)
+"void simplify_mesh(Mesh& mesh, const std::unordered_map<int, std::vector<int>>& vertex_adjacency) {
+    std::unordered_set<int> collapsed;
+    for (int v = 0; v < mesh.vertices.size(); ++v) {
+        if (!collapsed.count(v)) {
+            for (int neighbor : vertex_adjacency.at(v)) {
+                if (!collapsed.count(neighbor) && mesh.vertices[v].canCollapse(mesh.vertices[neighbor])) {
+                    mesh.mergeVertices(v, neighbor);
+                    collapsed.insert(neighbor);
+                    for (int adj_neighbor : vertex_adjacency.at(neighbor)) {
+                        if (!collapsed.count(adj_neighbor)) {
+                            vertex_adjacency.at(v).push_back(adj_neighbor);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}",O(V + E)
+"uint32_t crypto_find_largest_prime_under(uint32_t n, const std::vector<uint32_t>& sorted_primes) {
+    int low = 0, high = sorted_primes.size() - 1;
+    uint32_t result = 0;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_primes[mid] <= n) {
+            result = sorted_primes[mid];
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}",O(log n)
+"float adjust_volume_db(float current_db, float target_db) {
+    float low = current_db, high = target_db;
+    while (high - low > 0.01f) {
+        float mid = low + (high - low) / 2;
+        float adjusted = std::max(-60.0f, mid);
+        if (adjusted < target_db) low = mid;
+        else high = mid;
+    }
+    return high;
+}",O(log n)
+"float process_position(float position, float delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 9.81);
+}",O(1)
+"void compress_image_data(std::vector<uint8_t>& raw_data) {
+    std::vector<uint8_t> compressed;
+    uint8_t current = raw_data[0];
+    uint8_t count = 1;
+    for (size_t i = 1; i < raw_data.size(); i++) {
+        if (raw_data[i] == current && count < 255) {
+            count++;
+        } else {
+            compressed.push_back(count);
+            compressed.push_back(current);
+            current = raw_data[i];
+            count = 1;
+        }
+    }
+    compressed.push_back(count);
+    compressed.push_back(current);
+    raw_data = compressed;
+}",O(n)
+"#include <vector>
+#include <cstdint>
+
+// Optimized delta-encoded pagination index for large integer list
+// Given a page number, find the starting index in O(log n)
+size_t findPageStart(const std::vector<uint64_t>& pages, size_t pageNumber) {
+    // pages holds cumulative counts of items per page, sorted ascending
+    size_t left = 0, right = pages.size() - 1, mid;
+    while (left <= right) {
+        mid = left + ((right - left) >> 1);
+        if (pages[mid] < pageNumber) left = mid + 1;
+        else right = mid - 1;
+    }
+    return left; // first page that starts at or after pageNumber
+}
+",O(log n)
+"void sort_queue_by_z_index(std::vector<RenderMesh>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const RenderMesh& a, const RenderMesh& b) {
+        return a.z_index > b.z_index;
+    });
+}",O(n log n)
+"void processAudioSamples(std::vector<AudioSample>& samples) {
+    std::sort(samples.begin(), samples.end(), [](const AudioSample& a, const AudioSample& b) {
+        return a.intensity > b.intensity;
+    });
+    double total = 0;
+    for (size_t i = 0; i < samples.size() / 10; ++i) {
+        total += samples[i].intensity;
+    }
+}",O(n log n)
+"void allocate_from_pool(uint32_t* pool, size_t count) { static uint32_t* current = pool; for(size_t i=0; i<count; i++) *(current+i) = i; current += count; }",O(1)
+"void apply_reverb_samples(float* samples, int count, ReverbParams& rev) {
+    for (int i = 0; i < count; ++i) {
+        float delayed = samples[i] + rev.delay_buffer[(rev.delay_idx + rev.delay_length - rev.delay_time) % rev.delay_length] * rev.feedback;
+        rev.delay_buffer[rev.delay_idx] = delayed;
+        samples[i] = delayed + rev.wet_mix * rev.delay_buffer[(rev.delay_idx + rev.delay_length - rev.delay_time * 2) % rev.delay_length];
+        rev.delay_idx = (rev.delay_idx + 1) % rev.delay_length;
+    }
+}",O(n)
+"bool check_duplicate_transactions(const std::vector<Transaction>& txns) {
+    for (size_t i = 0; i < txns.size(); ++i) {
+        for (size_t j = 0; j < txns.size(); ++j) {
+            if (i != j && txns[i].id == txns[j].id) {
+                return true;
+            }
+        }
+    }
+    return false;
+}",O(n^2)
+"void resolve_contact_forces(std::vector<RigidBody>& bodies) {
+    for (size_t i = 0; i < bodies.size(); ++i) {
+        for (size_t j = i + 1; j < bodies.size(); ++j) {
+            Vector3 contact_point = find_contact(bodies[i], bodies[j]);
+            if (contact_point != Vector3(0,0,0)) {
+                Vector3 normal = normalize(bodies[i].position - bodies[j].position);
+                float depth = calculate_penetration(bodies[i], bodies[j]);
+                apply_impulse(bodies[i], bodies[j], normal * depth);
+            }
+        }
+    }
+}",O(n^2)
+"int64_t process_shield(int64_t shield, int64_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 9.81);
+}",O(1)
+"void process_sensor_data(const std::vector<float>& data, float threshold) {
+    for (size_t i = 0; i < data.size(); ++i) {
+        if (data[i] > threshold) {
+            data[i] *= 0.9f; // dampen overshoot
+        } else if (data[i] < -threshold) {
+            data[i] *= 1.1f;
+        }
+        // apply some nonlinear calibration
+        data[i] = std::atan(data[i]) * 0.5f;
+    }
+}",O(n)
+"void reconstruct_packet_flows(std::vector<Packet>& packets, const std::unordered_map<int, std::vector<int>>& flow_edges) {
+    std::unordered_map<int, bool> visited;
+    for (const auto& packet : packets) {
+        visited[packet.id] = false;
+    }
+    std::queue<int> q;
+    for (const auto& [src, _] : flow_edges) {
+        if (std::find_if(packets.begin(), packets.end(), [src](const Packet& p) { return p.id == src; }) != packets.end()) {
+            q.push(src);
+            visited[src] = true;
+        }
+    }
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int next : flow_edges.at(current)) {
+            auto it = std::find_if(packets.begin(), packets.end(), [next](const Packet& p) { return p.id == next; });
+            if (it != packets.end() && !visited[next]) {
+                it->flow_parent = current;
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}",O(V + E)
+"inline char hex_to_char(char high, char low) {
+    // Convert two hex characters to a byte – constant time
+    auto val = [](char c) -> uint8_t {
+        return (c >= '0' && c <= '9') ? c - '0' : (c & 0x5F) - 'A' + 10;
+    };
+    return static_cast<char>((val(high) << 4) | val(low));
+}",O(1)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double result = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) result -= val;
+    }
+    return result;
+}",O(n)
+"void sort_queue_by_distance_to_player(std::vector<AI_Agent>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const AI_Agent& a, const AI_Agent& b) {
+        return a.distance_to_player > b.distance_to_player;
+    });
+}",O(n log n)
+"int net_find_retransmit_count(float max_rtt_threshold, const std::vector<float>& sorted_rtt_thresholds) {
+    int low = 0, high = sorted_rtt_thresholds.size() - 1;
+    int result = sorted_rtt_thresholds.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_rtt_thresholds[mid] <= max_rtt_threshold) {
+            result = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}",O(log n)
+"std::optional<std::string> fetch_user_preferences(const std::map<std::string,Preference>& db,const std::string& user_id){auto it=db.find(user_id);if(it!=db.end())return it->second.preferences;return {}; // O(log n)}",O(log n)
+"int log_buffer_find_insert_idx(const std::vector<int64_t>& sorted_log_timestamps, int64_t new_timestamp) {
+    int low = 0, high = sorted_log_timestamps.size() - 1;
+    int insert_idx = sorted_log_timestamps.size();
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_log_timestamps[mid] >= new_timestamp) {
+            insert_idx = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return insert_idx;
+}",O(log n)
+"int find_target_id_index(const std::vector<Packet>& data, size_t target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void logAnalysis(std::vector<LogEntry>& logs) {
+    std::sort(logs.begin(), logs.end(), [](const LogEntry& a, const LogEntry& b) {
+        return a.timestamp < b.timestamp;
+    });
+    std::string errorPattern = ""ERROR"";
+    int errorCount = 0;
+    for (const auto& entry : logs) {
+        if (entry.message.find(errorPattern) != std::string::npos) {
+            errorCount++;
+        }
+    }
+}",O(n log n)
+"int find_vertex_index_index(const std::vector<Node>& data, long long vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"double process_health(double health, double delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 9.81);
+}",O(1)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double sum = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) sum *= val;
+    }
+    return sum;
+}",O(n)
+"int find_target_id_index(const std::vector<Packet>& data, long long target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double result = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) result += val;
+    }
+    return result;
+}",O(n)
+"int find_timestamp_index(const std::vector<Entity>& data, long long timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void process_network_logs(const std::vector<LogEntry>& entries) {
+    auto sorted = entries;
+    std::sort(sorted.begin(), sorted.end(), [](const auto& a, const auto& b) {
+        return a.timestamp < b.timestamp;
+    });
+    for (const auto& e : sorted) {
+        if (e.type == LogType::ERROR) {
+            handle_error(e);
+        } else if (e.type == LogType::WARNING) {
+            handle_warning(e);
+        }
+    }
+}",O(n log n)
+"#include <map>
+#include <optional>
+
+// Hierarchical configuration lookup with fallback using binary search on key length
+std::optional<std::string> getConfigValue(const std::map<std::string, std::string>& config, const std::string& key) {
+    // Store keys by length for binary search
+    std::vector<std::string> sortedKeys;
+    for (const auto& kv : config) sortedKeys.push_back(kv.first);
+    std::sort(sortedKeys.begin(), sortedKeys.end(), [](const auto& a, const auto& b){ return a.size() < b.size(); });
+
+    size_t left = 0, right = sortedKeys.size();
+    while (left < right) {
+        size_t mid = left + ((right - left) >> 1);
+        const std::string& midKey = sortedKeys[mid];
+        if (midKey.size() < key.size()) left = mid + 1;
+        else right = mid;
+    }
+    for (size_t i = left; i < sortedKeys.size(); ++i) {
+        if (config.find(sortedKeys[i]) != config.end()) return config.at(sortedKeys[i]);
+    }
+    return std::nullopt;
+}
+",O(log n)
+"int64_t compute_position(int64_t position, int64_t delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 2.0);
+}",O(1)
+"void update_inventory_conflicts(vector<Item>& items) {
+    for (size_t i = 0; i < items.size(); ++i) {
+        for (size_t j = 0; j < items.size(); ++j) {
+            if (i == j) continue;
+            if (items[i].name == items[j].name && items[i].location == items[j].location) {
+                cerr << ""Duplicate inventory entry!"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"float clamp_audio_sample(float sample, float min_v, float max_v) { if (sample < min_v) return min_v; if (sample > max_v) return max_v; return sample; }",O(1)
+"float calculate_average_framerate(const std::list<float>& frame_times) {
+    float sum = 0.0f;
+    for (float ft : frame_times) {
+        sum += ft;
+    }
+    return frame_times.empty() ? 0.0f : sum / frame_times.size();
+}",O(n)
+"void calculate_statistics(const std::vector<float>& data) {
+    if (data.empty()) return;
+    float sum = 0.0f, sum_sq = 0.0f;
+    for (float val : data) {
+        sum += val;
+        sum_sq += val * val;
+    }
+    float mean = sum / data.size();
+    float variance = (sum_sq / data.size()) - (mean * mean);
+    stats[""mean""] = mean;
+    stats[""variance""] = variance;
+    stats[""min""] = *std::min_element(data.begin(), data.end());
+    stats[""max""] = *std::max_element(data.begin(), data.end());
+}",O(n)
+"void resolve_url_route_conflicts(const std::vector<Route>& routes) {
+    for (const auto& route1 : routes) {
+        for (const auto& route2 : routes) {
+            if (&route1 == &route2) continue;
+            if (route1.pattern == route2.pattern) {
+                std::string error = ""Route conflict: "" + route1.pattern;
+                logger->error(error.c_str());
+                if (config.strict_mode) {
+                    throw std::runtime_error(error);
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void rebuild_spatial_hash(Entity* entities, int entity_count, SpatialGrid& grid) {
+    grid.cell_count = 0;
+    memset(grid.cells, 0, sizeof(GridCell) * MAX_GRID_CELLS);
+    for (int i = 0; i < entity_count; ++i) {
+        if (!entities[i].active) continue;
+        int cell_x = static_cast<int>(entities[i].position.x / grid.cell_size);
+        int cell_y = static_cast<int>(entities[i].position.y / grid.cell_size);
+        int cell_idx = cell_y * grid.dimensions.x + cell_x;
+        if (cell_idx >= 0 && cell_idx < MAX_GRID_CELLS) {
+            grid.cells[cell_idx].entities[grid.cells[cell_idx].count++] = &entities[i];
+            if (grid.cells[cell_idx].count > grid.max_per_cell) grid.max_per_cell = grid.cells[cell_idx].count;
+        }
+    }
+}",O(n)
+"void a_star_pathfinding_priority_sort(std::vector<Node>& open_set) {
+    std::sort(open_set.begin(), open_set.end(), [](const Node& a, const Node& b) {
+        return (a.g_cost + a.h_cost) < (b.g_cost + b.h_cost);
+    });
+    Node current = open_set.front();
+    open_set.erase(open_set.begin());
+    for (const auto& neighbor : get_neighbors(current)) {
+        update_open_set(neighbor);
+    }
+}",O(n log n)
+"double adjust_position(double position, double delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 1.5);
+}",O(1)
+"int find_timestamp_index(const std::vector<Packet>& data, long long timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void sort_queue_by_distance_to_player(std::vector<NetworkPacket>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const NetworkPacket& a, const NetworkPacket& b) {
+        return a.distance_to_player > b.distance_to_player;
+    });
+}",O(n log n)
+"void compute_render_order(std::vector<Sprite*>& sprites) {
+    for (size_t i = 0; i < sprites.size(); ++i) {
+        sprites[i]->update_z_order();
+    }
+    std::sort(sprites.begin(), sprites.end(), [](Sprite* a, Sprite* b) { return a->z_order < b->z_order; });
+}",O(n)
+"void analyze_compiler_dependencies(Variable& root, std::vector<Variable>& result) {
+    std::stack<Variable*> s;
+    std::unordered_map<Variable*, bool> visited;
+    s.push(&root);
+    while (!s.empty()) {
+        auto var = s.top(); s.pop();
+        if (!visited[var]) {
+            visited[var] = true;
+            result.push_back(*var);
+            for (const auto& dep : var->dependencies) {
+                s.push(&dep);
+            }
+        }
+    }
+}",O(V + E)
+"void fast_db_index_lookup(uint64_t hash, std::vector<uint64_t>& indices) { indices[hash%1024] = hash; }",O(1)
+"int find_target_id_index(const std::vector<Packet>& data, int target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"std::unordered_map<std::string, int> build_database_index(const std::vector<Record>& records) {
+    std::map<std::string, int> temp_index;
+    for (const auto& record : records) {
+        std::string key = record.key;
+        std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+        temp_index[key] = record.id;
+    }
+    return convert_map_to_unordered(temp_index);
+}",O(n log n)
+"void optimizePathfinding(std::vector<Node>& nodes) {
+    std::priority_queue<Node*, std::vector<Node*>, CompareHeuristic> openSet;
+    for (auto& n : nodes) {
+        openSet.push(&n);
+    }
+    while (!openSet.empty()) {
+        Node* current = openSet.top();
+        openSet.pop();
+        for (auto& neighbor : current->neighbors) {
+            openSet.push(&neighbor);
+        }
+    }
+}",O(n log n)
+"int audio_find_octave_band(double frequency, const std::vector<std::pair<double, double>>& sorted_octave_bands) {
+    int low = 0, high = sorted_octave_bands.size() - 1;
+    int result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        double lower = sorted_octave_bands[mid].first;
+        double upper = sorted_octave_bands[mid].second;
+        if (frequency >= lower && frequency <= upper) {
+            result = mid;
+            break;
+        } else if (frequency < lower) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return result;
+}",O(log n)
+"void resolve_script_imports(ScriptModule* modules, int module_count, DependencyGraph& graph) {
+    for (int i = 0; i < module_count; ++i) {
+        const char* import_start = modules[i].source_code;
+        for (size_t j = 0; j < strlen(modules[i].source_code); ++j) {
+            if (import_start[j] == '#' && import_start[j+1] == 'i' && import_start[j+2] == 'm' && import_start[j+3] == 'p' && import_start[j+4] == 'o') {
+                const char* path_start = import_start + j + 6; // skip '#import'
+                while (*path_start == ' ' || *path_start == '\t') path_start++;
+                if (*path_start == '""') {
+                    path_start++;
+                    const char* path_end = strchr(path_start, '""');
+                    if (path_end) {
+                        size_t path_len = path_end - path_start;
+                        char* path_copy = new char[path_len + 1];
+                        strncpy(path_copy, path_start, path_len);
+                        path_copy[path_len] = '\0';
+                        graph.add_dependency(modules[i].name, path_copy);
+                        delete[] path_copy;
+                    }
+                }
+            }
+        }
+    }
+}",O(n)
+"void process_game_events(std::vector<Event>& events) {
+    std::sort(events.begin(), events.end(), [](const Event& a, const Event& b) {
+        return a.time < b.time;
+    });
+    for (const auto& e : events) {
+        switch (e.type) {
+            case Event::PLAYER_MOVE:
+                update_player(e.player_pos);
+                break;
+            case Event::ENEMY_SPAWN:
+                spawn_enemy(e.enemy_type);
+                break;
+            default:
+                handle_default(e);
+        }
+    }
+}",O(n log n)
+"void parse_csv_with_quoted_fields(const std::string& data, std::vector<std::vector<std::string>>& out) {
+    // O(n^2) because we repeatedly scan the line for commas inside quotes
+    std::istringstream ss(data);
+    std::string line;
+    while (std::getline(ss, line)) {
+        std::vector<std::string> fields;
+        for (size_t i = 0; i < line.size(); ++i) {
+            if (line[i] == '""') {
+                // find closing quote, scanning whole rest of line each time -> O(m^2) per line
+                size_t j = i + 1;
+                while (j < line.size() && line[j] != '""') ++j;
+                fields.push_back(line.substr(i + 1, j - i - 1));
+                i = j;
+            } else {
+                size_t j = i;
+                while (j < line.size() && line[j] != ',') ++j;
+                fields.push_back(line.substr(i, j - i));
+                i = j;
+            }
+        }
+        out.push_back(std::move(fields));
+    }
+}
+",O(n^2)
+"void validate_network_packet_header(uint8_t* pkt, int len) { if(len<20||(pkt[0]!=0xAB&&pkt[1]!=0xCD)) drop_packet(); }",O(1)
+"void build_database_btree_index(const std::vector<std::string>& keys) {
+    std::vector<std::string> sorted_keys(keys);
+    std::sort(sorted_keys.begin(), sorted_keys.end(), [](const std::string& a, const std::string& b) {
+        return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+    });
+    BTreeNode node;
+    for (const auto& key : sorted_keys) {
+        node.insert_sorted_key(key);
+    }
+    write_btree_to_disk(node);
+}",O(n log n)
+"void serialize_user_data(const std::vector<User>& users, std::ostringstream& out) {
+    for (const auto& user : users) {
+        out << user.id << "","" << user.username << "","" << user.email << ""\n"";
+    }
+}",O(n)
+"int find_vertex_index_index(const std::vector<Packet>& data, size_t vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+int get_thread_id_fast() { return static_cast<int>(std::hash<std::thread::id>{}(std::this_thread::get_id()) & 0xFFFF); },O(1)
+"int64_t calculate_shield(int64_t shield, int64_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 0.98);
+}",O(1)
+"int find_hash_key_index(const std::vector<Entity>& data, size_t hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"std::string find_log_entry_after_time(const std::vector<std::pair<int, std::string>>& sorted_logs, int target_time) {
+    int left = 0, right = sorted_logs.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (sorted_logs[mid].first < target_time) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return (left < sorted_logs.size()) ? sorted_logs[left].second : """";
+}",O(log n)
+"void sort_queue_by_priority(std::vector<RenderMesh>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const RenderMesh& a, const RenderMesh& b) {
+        return a.priority > b.priority;
+    });
+}",O(n log n)
+"void validate_financial_transactions(const vector<Transaction>& transactions) {
+    for (size_t i = 0; i < transactions.size(); ++i) {
+        for (size_t j = 0; j < transactions.size(); ++j) {
+            if (i == j) continue;
+            if (transactions[i].account == transactions[j].account &&
+                transactions[i].amount + transactions[j].amount > 10000) {
+                cout << ""Suspicious transaction pattern detected"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"int64_t calculate_mana(int64_t mana, int64_t delta_time) {
+    if (mana <= 0) return 0;
+    return mana + (delta_time * 1.5);
+}",O(1)
+"void processGameEvents(std::vector<Event>& events) {
+    std::sort(events.begin(), events.end(), [](const Event& a, const Event& b) {
+        return a.priority > b.priority;
+    });
+    for (const auto& e : events) {
+        executeEvent(e);
+    }
+}",O(n log n)
+"#include <sstream>
+
+// Recursive descent parser for simple arithmetic expressions that evaluates in O(log n)
+class ExprParser {
+public:
+    static int parse(const std::string& expr) {
+        std::istringstream ss(expr);
+        return parseExpression(ss);
+    }
+private:
+    static int parseExpression(std::istringstream& ss) {
+        int value = parseTerm(ss);
+        char op;
+        while (ss >> op && (op == '+' || op == '-')) {
+            int right = parseTerm(ss);
+            value = (op == '+') ? value + right : value - right;
+        }
+        return value;
+    }
+    static int parseTerm(std::istringstream& ss) {
+        int value = parseFactor(ss);
+        char op;
+        while (ss >> op && (op == '*' || op == '/')) {
+            int right = parseFactor(ss);
+            value = (op == '*') ? value * right : value / right;
+        }
+        return value;
+    }
+    static int parseFactor(std::istringstream& ss) {
+        char ch;
+        ss >> ch;
+        if (isdigit(ch)) {
+            ss.unget();
+            int val; ss >> val; return val;
+        }
+        if (ch == '(') {
+            int val = parseExpression(ss);
+            ss >> ch; // consume ')'
+            return val;
+        }
+        return 0; // error case
+    }
+};
+",O(log n)
+"void update_particle_states(Particle* particles, int count) {
+    for (int i = 0; i < count; ++i) {
+        if (particles[i].life <= 0) continue;
+        particles[i].velocity.x += particles[i].acceleration.x * g_dt;
+        particles[i].velocity.y += particles[i].acceleration.y * g_dt;
+        particles[i].position.x += particles[i].velocity.x * g_dt;
+        particles[i].position.y += particles[i].velocity.y * g_dt;
+        particles[i].life -= g_dt;
+        particles[i].rotation += particles[i].angular_vel * g_dt;
+        if (particles[i].position.y > water_level_) {
+            particles[i].velocity.y *= -0.6f;
+            particles[i].position.y = water_level_ - (particles[i].position.y - water_level_);
+            particles[i].life *= 0.8f;
+        }
+    }
+}",O(n)
+"int find_timestamp_index(const std::vector<Entity>& data, int timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"std::optional<std::size_t> binary_search_insert_position(const std::vector<int>& sorted,int target){auto it=std::lower_bound(sorted.begin(),sorted.end(),target);return static_cast<std::size_t>(it-sorted.begin());// O(log n)}",O(log n)
+int extract_ipv4_last_octet(const char* ip_str) { const char* p = ip_str; while (*p && *p != '.') p++; return (p && *(p+1)) ? *(p+1) - '0' : 0; },O(1)
+"void navigate_maze(const std::vector<std::vector<int>>& grid, int start_row, int start_col) {
+    const int rows = grid.size();
+    const int cols = grid[0].size();
+    std::queue<std::pair<int, int>> q;
+    std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
+    int dr[] = { -1, 1, 0, 0 };
+    int dc[] = { 0, 0, -1, 1 };
+    q.push({start_row, start_col});
+    visited[start_row][start_col] = true;
+    while (!q.empty()) {
+        auto cell = q.front(); q.pop();
+        for (int i = 0; i < 4; ++i) {
+            int nr = cell.first + dr[i];
+            int nc = cell.second + dc[i];
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc] && grid[nr][nc] == 0) {
+                visited[nr][nc] = true;
+                q.push({nr, nc});
+            }
+        }
+    }
+}",O(V + E)
+"inline bool is_blacklisted_ip(const std::array<uint32_t,256>& blacklist, uint32_t ip) {
+    // Simple hash‑like direct map: each possible byte of the IP selects a slot
+    // This is constant work regardless of blacklist size (fixed at compile time)
+    uint8_t index = static_cast<uint8_t>(ip >> 24);
+    return blacklist[index] == ip;
+}",O(1)
+"void render_next_frame(const std::vector<FrameCommand>& cmds,size_t frame_idx){auto it=std::lower_bound(cmds.begin(),cmds.end(),frame_idx,[](const FrameCommand& c,size_t idx){return c.startFrame<idx;});// O(log n)}",O(log n)
+"std::vector<Task> schedule_tasks(const std::vector<Task>& tasks) {
+    auto sorted_tasks = tasks;
+    std::stable_sort(sorted_tasks.begin(), sorted_tasks.end(), [](const Task& a, const Task& b) {
+        return a.priority > b.priority || (a.priority == b.priority && a.deadline < b.deadline);
+    });
+    return sorted_tasks;
+}",O(n log n)
+"#include <vector>
+#include <algorithm>
+
+// Binary indexed tree (Fenwick tree) for dynamic rank queries in O(log n)
+class Fenwick {
+    std::vector<int> bit;
+public:
+    Fenwick(int n) : bit(n + 1, 0) {}
+    void update(int idx, int delta) {
+        for (++idx; idx < (int)bit.size(); idx += idx & -idx) bit[idx] += delta;
+    }
+    int query(int idx) const {
+        int sum = 0;
+        for (++idx; idx > 0; idx -= idx & -idx) sum += bit[idx];
+        return sum;
+    }
+    int findByOrder(int k) const { // kth smallest element index
+        int idx = 0, mask = 1 << (31 - __builtin_clz(bit.size()));
+        while (mask) {
+            int t = idx + mask;
+            if (t < (int)bit.size() && bit[t] < k) { k -= bit[t]; idx = t; }
+            mask >>= 1;
+        }
+        return idx; // 0-based index
+    }
+};
+",O(log n)
+"void simulate_packet_routing(NetworkTopology& graph, NodeId source) {
+    std::deque<NodeId> q;
+    std::unordered_map<NodeId, bool> visited;
+    q.push_back(source);
+    visited[source] = true;
+    while (!q.empty()) {
+        auto current = q.front(); q.pop_front();
+        for (const auto& [neighbor, link] : graph[current].connections) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                link.process_packet();
+                q.push_back(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"struct IndexEntry {
+    int64_t key;
+    uint32_t row_id;
+};
+
+int db_index_lookup_key(const std::vector<IndexEntry>& sorted_entries, int64_t target_key) {
+    int low = 0, high = sorted_entries.size() - 1;
+    int result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_entries[mid].key == target_key) {
+            result = mid;
+            high = mid - 1;
+        } else if (sorted_entries[mid].key < target_key) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}",O(log n)
+"void validate_file_path(const char* path) { static const char allowed_drive[] = {'C', 'D'}; if(strlen(path)<5||path[1]!=':'||allowed_drive[path[0]-'A']==0) throw invalid_path(); }",O(1)
+"void build_adjacency_matrix(const std::vector<std::string>& words, std::vector<std::vector<int>>& matrix) {
+    // O(n^2 * m) where n = words.size(), m = average word length
+    size_t n = words.size();
+    matrix.assign(n, std::vector<int>(n, 0));
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            if (i == j) continue;
+            const std::string& a = words[i];
+            const std::string& b = words[j];
+            // count shared characters (naïve)
+            int shared = 0;
+            for (char ca : a) {
+                for (char cb : b) {
+                    if (ca == cb) ++shared;
+                }
+            }
+            matrix[i][j] = shared;
+        }
+    }
+}
+",O(n^2)
+"inline void set_texture_slot(ID3D11DeviceContext* ctx, ID3D11ShaderResourceView* tex, uint32_t slot) {
+    // Directly bind a texture to a known shader slot – one API call, O(1)
+    ctx->PSSetShaderResources(slot, 1, &tex);
+}",O(1)
+"void validate_form_field(FormField& field) {
+    std::queue<FormField*> q;
+    std::unordered_map<FormField*, bool> validated;
+    q.push(&field);
+    validated[&field] = true;
+    while (!q.empty()) {
+        auto current = q.front(); q.pop();
+        current->check_constraints();
+        current->notify_errors();
+        for (auto& dependent : current->dependents) {
+            if (!validated[dependent]) {
+                validated[dependent] = true;
+                q.push(dependent);
+            }
+        }
+    }
+}",O(V + E)
+"void update_game_tiles(std::vector<std::vector<Tile>>& tiles, int start_x, int start_y) {
+    std::queue<std::pair<int, int>> q;
+    std::unordered_map<std::string, bool> visited;
+    q.push({start_x, start_y});
+    visited[std::to_string(start_x) + "","" + std::to_string(start_y)] = true;
+    while (!q.empty()) {
+        auto [x, y] = q.front(); q.pop();
+        if (tiles[x][y].is_dirty()) {
+            tiles[x][y].render_dirty_region();
+            for (const auto& [dx, dy] : {{0,1}, {1,0}, {0,-1}, {-1,0}}) {
+                int nx = x + dx, ny = y + dy;
+                if (nx >= 0 && ny >= 0 && nx < tiles.size() && ny < tiles[0].size()) {
+                    std::string key = std::to_string(nx) + "","" + std::to_string(ny);
+                    if (!visited[key]) {
+                        visited[key] = true;
+                        q.push({nx, ny});
+                    }
+                }
+            }
+        }
+    }
+}",O(V + E)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator += val;
+    }
+    return accumulator;
+}",O(n)
+"void process_physics() {
+    static float accumulator = 0.0f;
+    accumulator += frame_delta;
+    while (accumulator >= TIME_STEP) {
+        for (auto& rigidbody : scene.rigidbodies) {
+            if (rigidbody.mass > 0.0f) {
+                rigidbody.velocity += gravity * TIME_STEP;
+                rigidbody.position += rigidbody.velocity * TIME_STEP;
+                if (rigidbox.is_colliding(rigidbody)) {
+                    rigidbody.velocity *= -0.7f;
+                }
+            }
+        }
+        accumulator -= TIME_STEP;
+    }
+}",O(n)
+"std::vector<double> find_peaks(const std::vector<std::complex<double>>& spectrum) {
+    std::vector<double> magnitudes(spectrum.size());
+    for (size_t i = 0; i < spectrum.size(); ++i) {
+        magnitudes[i] = std::abs(spectrum[i]);
+    }
+    // Sort frequencies by magnitude
+    std::vector<size_t> indices(magnitudes.size());
+    std::iota(indices.begin(), indices.end(), 0);
+    std::sort(indices.begin(), indices.end(), 
+        [&magnitudes](size_t i, size_t j) {
+            return magnitudes[i] > magnitudes[j];
+        });
+    std::vector<double> peaks;
+    for (size_t i = 0; i < std::min(indices.size(), size_t(5)); ++i) {
+        peaks.push_back(magnitudes[indices[i]]);
+    }
+    return peaks;
+}",O(n log n)
+"void process_shadow_mapping(FrameBuffer& buffer, std::vector<Light>& lights) {
+    for (auto& light : lights) {
+        for (int y = 0; y < buffer.height; ++y) {
+            for (int x = 0; x < buffer.width; ++x) {
+                Vector3 frag_pos = buffer.get_world_pos(x, y);
+                float shadow = calculate_shadow(light, frag_pos);
+                buffer.apply_shadow(x, y, shadow);
+            }
+        }
+    }
+}",O(n^2)
+"#include <queue>
+
+// Priority queue of rendering tasks that resolves dependencies in O(log n)
+struct RenderTask {
+    int priority;
+    int id;
+    bool operator<(const RenderTask& other) const { return priority < other.priority; }
+};
+
+void scheduleTasks(std::priority_queue<RenderTask>& tasks) {
+    while (!tasks.empty()) {
+        RenderTask t = tasks.top(); tasks.pop();
+        // Process rendering; complexity for each pop/push is O(log n)
+        // ... rendering logic here ...
+    }
+}
+",O(log n)
+"bool validate_xml_structure(const std::vector<XMLNode>& nodes) {
+    for (size_t i = 0; i < nodes.size(); ++i) {
+        for (size_t j = 0; j < nodes.size(); ++j) {
+            if (i != j && nodes[i].parent == nodes[j].id) {
+                if (!nodes[i].valid || !nodes[j].valid) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}",O(n^2)
+"void parse_log_entry(std::string& log) {
+    std::unordered_map<std::string, std::string> result;
+    size_t pos = 0;
+    std::string token;
+    while ((pos = log.find(' ', pos)) != std::string::npos) {
+        token = log.substr(0, pos);
+        if (token.find('=') != std::string::npos) {
+            size_t eq_pos = token.find('=');
+            result[token.substr(0, eq_pos)] = token.substr(eq_pos+1);
+        }
+        log.erase(0, pos+1);
+        pos = 0;
+    }
+    if (!log.empty()) {
+        if (log.find('=') != std::string::npos) {
+            size_t eq_pos = log.find('=');
+            result[log.substr(0, eq_pos)] = log.substr(eq_pos+1);
+        }
+    }
+    parsed_logs.push_back(result);
+}",O(n)
+"int find_vertex_index_index(const std::vector<Record>& data, int vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+float fast_inv_sqrt(float x) { float xhalf = 0.5f * x; int i = *reinterpret_cast<int*>(&x); i = 0x5f3759df - (i >> 1); x = *reinterpret_cast<float*>(&i); return x * (1.5f - xhalf * x * x); },O(1)
+"void propagate_social_post(const User& origin, std::queue<User>& notification_queue) {
+    std::unordered_map<UserId, bool> visible;
+    notification_queue.push(origin);
+    visible[origin.id] = true;
+    while (!notification_queue.empty()) {
+        auto user = notification_queue.front(); notification_queue.pop();
+        for (const auto& friend_id : user.friends) {
+            if (!visible[friend_id] && user.privacy_level >= UserPrivacy::FRIENDS) {
+                visible[friend_id] = true;
+                notification_queue.push(get_user(friend_id));
+            }
+        }
+    }
+}",O(V + E)
+"void process_video_frames(std::vector<Frame>& frames) {
+    std::sort(frames.begin(), frames.end(), [](const Frame& a, const Frame& b) {
+        return a.timestamp < b.timestamp;
+    });
+    for (auto& frame : frames) {
+        apply_motion_compensation(frame);
+    }
+}",O(n log n)
+"void update_leaderboard_score(std::map<std::string,int>& scores,const std::string& player,int delta){auto it=scores.find(player);if(it!=scores.end()){it->second+=delta;}// O(log n)}",O(log n)
+"void handle_network_packets_ordered(std::queue<Packet>& packet_queue) {
+    std::vector<Packet> packets;
+    while (!packet_queue.empty()) {
+        packets.push_back(packet_queue.front());
+        packet_queue.pop();
+    }
+    std::sort(packets.begin(), packets.end(), [](const Packet& a, const Packet& b) {
+        return a.header.sequence_number < b.header.sequence_number;
+    });
+    for (const auto& pkt : packets) {
+        process_packet_payload(pkt);
+    }
+}",O(n log n)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double sum = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) sum -= val;
+    }
+    return sum;
+}",O(n)
+"int calculate_stamina(int stamina, int delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 9.81);
+}",O(1)
+"void render_pixel_art(uint8_t* frame, int x, int y, uint32_t color) { uint32_t* target = (uint32_t*)(frame + (y*640 + x)*4); *target = (color & 0xFF) | ((color>>8)&0xFF00) | ((color>>16)&0xFF0000) | (color<<8)&0xFF000000); }",O(1)
+"size_t compute_velocity(size_t velocity, size_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 9.81);
+}",O(1)
+"void parse_and_sort_log_tokens(const std::string& log_line) {
+    std::unordered_map<std::string, int> token_freq;
+    std::istringstream iss(log_line);
+    std::string token;
+    while (iss >> token) {
+        ++token_freq[token];
+    }
+    std::vector<std::pair<std::string, int>> freq_vec(token_freq.begin(), token_freq.end());
+    std::sort(freq_vec.begin(), freq_vec.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+    for (const auto& [word, count] : freq_vec) {
+        std::cout << word << "":"" << count << ""\n"";
+    }
+}",O(n log n)
+"void build_similarity_index(std::vector<Document>& documents, std::vector<std::pair<size_t, size_t>>& similar_pairs) {
+    for (size_t i = 0; i < documents.size(); ++i) {
+        for (size_t j = i + 1; j < documents.size(); ++j) {
+            int common_words = 0;
+            for (const auto& word : documents[i].words) {
+                for (const auto& other_word : documents[j].words) {
+                    if (word == other_word) { common_words++; break; }
+                }
+            }
+            if (common_words > 0.8 * std::min(documents[i].words.size(), documents[j].words.size())) {
+                similar_pairs.emplace_back(i, j);
+            }
+        }
+    }
+}",O(n^2)
+"void update_particle_collisions(std::vector<Particle>& particles) {
+    for (auto& p1 : particles) {
+        for (auto& p2 : particles) {
+            if (&p1 != &p2 && distance(p1.pos, p2.pos) < p1.radius + p2.radius) {
+                p1.velocity = reflect(p1.velocity, p2.velocity);
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_z_index(std::vector<PhysicsBody>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const PhysicsBody& a, const PhysicsBody& b) {
+        return a.z_index > b.z_index;
+    });
+}",O(n log n)
+"double update_mana(double mana, double delta_time) {
+    if (mana <= 0) return 0;
+    return mana + (delta_time * 9.81);
+}",O(1)
+"int game_select_lod_level(float camera_distance, const std::vector<float>& lod_max_distances) {
+    int low = 0, high = lod_max_distances.size() - 1;
+    int selected_lod = lod_max_distances.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (lod_max_distances[mid] >= camera_distance) {
+            selected_lod = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return selected_lod;
+}",O(log n)
+"void decode_network_packet(NetPacket& packet) {
+    std::vector<uint8_t> decompressed;
+    uint8_t rle_count = 1;
+    for (size_t i = 0; i < packet.payload.size(); i++) {
+        if (i < packet.payload.size() - 1 && packet.payload[i] == packet.payload[i+1]) {
+            rle_count++;
+            if (rle_count == 255) {
+                decompressed.insert(decompressed.end(), 255, packet.payload[i]);
+                rle_count = 1;
+            }
+        } else {
+            decompressed.insert(decompressed.end(), rle_count, packet.payload[i]);
+            rle_count = 1;
+        }
+    }
+    packet.decompressed_payload = decompressed;
+}",O(n)
+"bool check_duplicate_log_entries(const std::vector<std::string>& logs) {
+    std::unordered_set<std::string> seen_logs;
+    for (const auto& log : logs) {
+        if (!seen_logs.insert(log).second) {
+            return true;
+        }
+    }
+    return false;
+}",O(n)
+"struct CurrencySorter {
+    static bool compare(const Transaction& a, const Transaction& b) {
+        int currency_cmp = a.currency_code.compare(b.currency_code);
+        if (currency_cmp != 0) return currency_cmp < 0;
+        return a.timestamp < b.timestamp;
+    }
+};
+std::vector<Transaction> process_transactions(std::vector<Transaction> transactions) {
+    std::sort(transactions.begin(), transactions.end(), CurrencySorter::compare);
+    // Remove duplicate transactions
+    transactions.erase(std::unique(transactions.begin(), transactions.end(), 
+        [](const Transaction& a, const Transaction& b) {
+            return a.id == b.id;
+        }), transactions.end());
+    return transactions;
+}",O(n log n)
+"void detect_collision_circle_AABB(float circle_x, float circle_y, float radius, float box_x, float box_y, float w, float h) { float dx = fabs(circle_x - box_x) - w/2; float dy = fabs(circle_y - box_y) - h/2; if(dx<=radius&&dy<=radius) collide(); }",O(1)
+float get_normalized_gpu_depth(uint32_t depth_buffer_val) { return static_cast<float>(depth_buffer_val) / static_cast<float>(0xFFFFFFFF); },O(1)
+"int find_vertex_index_index(const std::vector<Entity>& data, long long vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"int find_insertion_point(const std::vector<int>& sorted_scores, int target) {
+    int low = 0, high = sorted_scores.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_scores[mid] == target) return mid;
+        else if (sorted_scores[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return low;
+}",O(log n)
+"int find_timestamp_index(const std::vector<Node>& data, long long timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void analyze_sensor_data(std::vector<SensorReading>& readings) {
+    std::map<double, double> processed;
+    for (const auto& r : readings) {
+        processed[r.timestamp] = r.value;
+    }
+    for (const auto& [time, value] : processed) {
+        publish_metric(time, value);
+    }
+}",O(n log n)
+"void process_telemetry_buffer(char* raw_data, size_t len) {
+    std::vector<float> speeds;
+    std::vector<int> gear_changes;
+    float current_speed = 0.0f;
+    for (size_t i = 0; i < len; ++i) {
+        if (raw_data[i] == '\n') {
+            speeds.push_back(current_speed);
+            current_speed = 0.0f;
+            continue;
+        } else if (raw_data[i] == 'G') {
+            gear_changes.push_back(static_cast<int>(i));
+        } else {
+            current_speed += static_cast<float>(raw_data[i]) * 0.1f;
+        }        
+    }
+    if (current_speed > 0) speeds.push_back(current_speed);
+    // Update player stats
+    player.max_speed_recorded = std::max(100.0f, *std::max_element(speeds.begin(), speeds.end()));
+}",O(n)
+"void find_mutual_friends(const vector<vector<int>>& friends, vector<pair<int, int>>& mutual_pairs) {
+    for (size_t i = 0; i < friends.size(); ++i) {
+        for (size_t j = 0; j < friends.size(); ++j) {
+            if (i == j) continue;
+            for (int fid : friends[i]) {
+                for (int fjd : friends[j]) {
+                    if (fid == fjd) {
+                        mutual_pairs.push_back({i, j});
+                    }
+                }
+            }
+        }
+    }
+}",O(n^2)
+"void validate_database_foreign_keys(const Table& main_table, std::stack<Table>& dependency_stack) {
+    std::unordered_map<Table*, bool> visited;
+    dependency_stack.push(main_table);
+    while (!dependency_stack.empty()) {
+        auto table = dependency_stack.top(); dependency_stack.pop();
+        if (!visited[&table]) {
+            visited[&table] = true;
+            for (const auto& fk : table.get_foreign_keys()) {
+                if (!fk.is_valid()) throw ConstraintViolation();
+                dependency_stack.push(fk.referenced_table());
+            }
+        }
+    }
+}",O(V + E)
+"int find_line_number(const std::vector<int>& line_offsets, int position) {
+    auto it = std::upper_bound(line_offsets.begin(), line_offsets.end(), position);
+    return (it - line_offsets.begin());
+}",O(log n)
+"int64_t calculate_velocity(int64_t velocity, int64_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 1.5);
+}",O(1)
+"void resolve_collision_detection(const std::set<Collider>& colliders,const Entity& entity){auto range=colliders.lower_bound(entity.bbox.min);for(auto it=range;it!=colliders.end() && it->max<=entity.bbox.max;++it){/* handle */} // O(log n)}",O(log n)
+"void check_memory_fragmentation(std::vector<MemoryBlock>& blocks) {
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        for (size_t j = 0; j < blocks.size(); ++j) {
+            if (i == j) continue;
+            if (blocks[i].start_address > blocks[j].start_address &&
+                blocks[i].start_address < blocks[j].end_address) {
+                logger->critical(""Memory overlap detected"");
+                merge_blocks(blocks[i], blocks[j]);
+                i = 0; j = 0;
+                break;
+            }
+        }
+    }
+}",O(n^2)
+"void sort_queue_by_z_index(std::vector<NetworkPacket>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const NetworkPacket& a, const NetworkPacket& b) {
+        return a.z_index > b.z_index;
+    });
+}",O(n log n)
+"void updateTrafficSimulation(std::vector<Vehicle>& vehicles) {
+    std::sort(vehicles.begin(), vehicles.end(), [](const Vehicle& a, const Vehicle& b) {
+        return a.position.x > b.position.x;
+    });
+    for (size_t i = 0; i < vehicles.size() - 1; ++i) {
+        if (vehicles[i].position.x - vehicles[i + 1].position.x < SAFE_DISTANCE) {
+            vehicles[i].speed = vehicles[i + 1].speed;
+        }
+    }
+}",O(n log n)
+"void evict_cache_entry(std::vector<int>& timestamps, int current_time) {
+    int left = 0, right = timestamps.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (timestamps[mid] > current_time) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    timestamps.erase(timestamps.begin() + right);
+}",O(log n)
+"int find_vertex_index_index(const std::vector<Entity>& data, int vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void parse_image_metadata(const std::vector<uint8_t>& pixels, size_t width, Metadata& meta) {
+    meta.max_intensity = 0;
+    meta.min_intensity = 255;
+    for (size_t i = 0; i < pixels.size(); ++i) {
+        meta.max_intensity = std::max(meta.max_intensity, pixels[i]);
+        meta.min_intensity = std::min(meta.min_intensity, pixels[i]);
+    }
+    meta.average_intensity = static_cast<float>(std::accumulate(pixels.begin(), pixels.end(), 0LL)) / pixels.size();
+}",O(n)
+"bool is_bit_set_in_config(uint64_t config_flags, int flag_index) { return (config_flags & (1ULL << flag_index)) != 0; }",O(1)
+"uint32_t compute_velocity(uint32_t velocity, uint32_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 1.5);
+}",O(1)
+"void calculate_financial_moving_average(std::vector<double>& prices) {
+    std::sort(prices.begin(), prices.end(), [](double a, double b) {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(a.time - b.time).count() < 0;
+    });
+    double sum = 0;
+    for (size_t i = 0; i < prices.size(); ++i) {
+        sum += prices[i].value;
+        prices[i].moving_avg = sum / (i + 1);
+    }
+}",O(n log n)
+"std::vector<int> suggest_friends(int user_id, const std::unordered_map<int, std::vector<int>>& friendships) {
+    std::unordered_set<int> direct_friends(friendships.at(user_id).begin(), friendships.at(user_id).end());
+    std::unordered_set<int> suggestions;
+    std::queue<int> q;
+    q.push(user_id);
+    int depth = 0;
+    while (!q.empty() && depth < 2) {
+        int size = q.size();
+        for (int i = 0; i < size; ++i) {
+            int current = q.front(); q.pop();
+            for (int friend_id : friendships.at(current)) {
+                if (direct_friends.find(friend_id) == direct_friends.end() && friend_id != user_id) {
+                    suggestions.insert(friend_id);
+                }
+                if (depth < 1) {
+                    q.push(friend_id);
+                }
+            }
+        }
+        depth++;
+    }
+    return std::vector<int>(suggestions.begin(), suggestions.end());
+}",O(V + E)
+"void render_sprites(const std::vector<Sprite>& sprites) {
+    for (const auto& sprite : sprites) {
+        if (sprite.is_visible()) {
+            draw_to_buffer(sprite.texture_id, sprite.x, sprite.y);
+        }
+    }
+}",O(n)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total += val;
+    }
+    return total;
+}",O(n)
+"int find_route_index(const std::vector<int>& sorted_hops, int target_hop) {
+    int left = 0, right = sorted_hops.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (sorted_hops[mid] == target_hop) {
+            while (mid > 0 && sorted_hops[mid-1] == target_hop) mid--;
+            return mid;
+        } else if (sorted_hops[mid] < target_hop) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}",O(log n)
+"void optimizeNetworkPackets(std::vector<Packet>& packets) {
+    std::sort(packets.begin(), packets.end(), [](const Packet& a, const Packet& b) {
+        return a.size > b.size;
+    });
+    size_t totalSize = 0;
+    for (const auto& pkt : packets) {
+        if (totalSize + pkt.size > MAX_PACKET_SIZE) break;
+        totalSize += pkt.size;
+    }
+}",O(n log n)
+"int process_position(int position, int delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 0.98);
+}",O(1)
+"int find_vertex_index_index(const std::vector<Node>& data, int vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void apply_bloom_effect(Pixel* pixels, int width, int height, BloomSettings& settings) {
+    int pixel_count = width * height;
+    for (int i = 0; i < pixel_count; ++i) {
+        float brightness = (pixels[i].r + pixels[i].g + pixels[i].b) / 3.0f;
+        if (brightness > settings.threshold) {
+            float bloom_factor = (brightness - settings.threshold) * settings.intensity;
+            pixels[i].r = std::min(1.0f, pixels[i].r + bloom_factor);
+            pixels[i].g = std::min(1.0f, pixels[i].g + bloom_factor);
+            pixels[i].b = std::min(1.0f, pixels[i].b + bloom_factor);
+        }        
+    }
+}",O(n)
+"void render_game_objects_with_depth_sorting(std::vector<GameObject>& objects) {
+    std::sort(objects.begin(), objects.end(), [](const GameObject& a, const GameObject& b) {
+        return (a.position.z + a.depth_bias) > (b.position.z + b.depth_bias);
+    });
+    for (const auto& obj : objects) {
+        shader->bind();
+        glDrawElements(GL_TRIANGLES, obj.index_count, GL_UNSIGNED_INT, 0);
+    }
+}",O(n log n)
+"void custom_hash_map_insert(std::unordered_map<std::string, int>& m, const std::string& key, int val) { m[key[0]] = val + (m.find(key)!=m.end()?1:0); }",O(1)
+"size_t calculate_shield(size_t shield, size_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 2.0);
+}",O(1)
+"double calculate_position(double position, double delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 0.98);
+}",O(1)
+"int64_t update_stamina(int64_t stamina, int64_t delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 2.0);
+}",O(1)
+"void sort_queue_by_priority(std::vector<PhysicsBody>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const PhysicsBody& a, const PhysicsBody& b) {
+        return a.priority > b.priority;
+    });
+}",O(n log n)
+int fast_toupper(char c) { return (c >= 'a' && c <= 'z') ? c & ~0x20 : c; },O(1)
+"void garbage_collect_objects(const GCGraph& graph, Object* root) {
+    std::stack<Object*> stack;
+    std::unordered_set<Object*> reachable;
+    stack.push(root);
+    while (!stack.empty()) {
+        Object* obj = stack.top();
+        stack.pop();
+        if (reachable.find(obj) != reachable.end()) continue;
+        reachable.insert(obj);
+        for (Object* ref : graph.get_references(obj)) {
+            stack.push(ref);
+        }
+    }
+    for (Object* obj : graph.all_objects) {
+        if (reachable.find(obj) == reachable.end()) {
+            delete obj;
+        }
+    }
+}",O(V + E)
+"void detect_particle_collisions(std::vector<Particle>& particles) {
+    for (size_t i = 0; i < particles.size(); ++i) {
+        for (size_t j = i + 1; j < particles.size(); ++j) {
+            float dx = particles[i].x - particles[j].x;
+            float dy = particles[i].y - particles[j].y;
+            float dist_sq = dx * dx + dy * dy;
+            if (dist_sq < (particles[i].radius + particles[j].radius) * (particles[i].radius + particles[j].radius)) {
+                resolve_collision(particles[i], particles[j]);
+            }
+        }
+    }
+}",O(n^2)
+"#include <deque>
+
+// Smooth resource allocator that keeps a history of last N usage metrics
+// Query for highest usage in O(log n) via binary search on sorted history
+class HistoryAllocator {
+    std::deque<int> usageHistory; // store last N usage percentages
+public:
+    HistoryAllocator(int capacity) { usageHistory.resize(capacity, 0); }
+    void record(int usage) {
+        usageHistory.pop_front();
+        usageHistory.push_back(usage);
+    }
+    int getPeakUsage() const {
+        std::deque<int> copy = usageHistory;
+        std::sort(copy.begin(), copy.end());
+        return copy.back();
+    }
+    int getPercentile(int percentile) const {
+        std::deque<int> copy = usageHistory;
+        std::sort(copy.begin(), copy.end());
+        int idx = (percentile * copy.size()) / 100;
+        idx = idx % copy.size();
+        return copy[idx];
+    }
+};
+",O(log n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator += val;
+    }
+    return accumulator;
+}",O(n)
+"void suggest_friends(const UserGraph& graph, int user_id) {
+    std::queue<int> q;
+    std::unordered_set<int> visited;
+    std::unordered_set<int> suggestions;
+    q.push(user_id);
+    visited.insert(user_id);
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        for (int neighbor : graph.get_friends(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+                for (int mutual : graph.get_friends(neighbor)) {
+                    if (mutual != user_id && visited.find(mutual) == visited.end()) {
+                        suggestions.insert(mutual);
+                    }
+                }
+            }
+        }
+    }
+}",O(V + E)
+"inline bool db_index_lookup(const std::array<uint32_t,128>& index_page, uint32_t key) {
+    // Fixed‑size hash page: key's lower 7 bits pick a slot, compare directly – constant time
+    uint8_t slot = static_cast<uint8_t>(key & 0x7F);
+    return index_page[slot] == key;
+}",O(1)
+"#include <filesystem>
+#include <unordered_map>
+
+// File cache that uses LRU eviction based on file modification times O(log n)
+class FileCache {
+    struct Node {
+        std::filesystem::path path;
+        std::filesystem::file_time_type time;
+        std::weak_ptr<Node> prev, next;
+    };
+    std::unordered_map<std::filesystem::path, std::shared_ptr<Node>> cache;
+    std::shared_ptr<Node> head = std::make_shared<Node>();
+    std::shared_ptr<Node> tail = std::make_shared<Node>();
+public:
+    FileCache() {
+        head->next = tail;
+        tail->prev = head;
+    }
+    void access(const std::filesystem::path& p) {
+        auto it = cache.find(p);
+        if (it != cache.end()) {
+            // Move to front in O(log n) by binary search in list
+            // simplified as O(1) for brevity
+        } else {
+            if (cache.size() >= 1000) evict();
+            auto node = std::make_shared<Node>();
+            node->path = p;
+            node->time = std::filesystem::last_write_time(p);
+            // Insert at front in O(1)
+            cache[p] = node;
+        }
+    }
+    void evict() {
+        // Remove least recently used (tail's prev) in O(log n)
+        auto lru = tail->prev.lock();
+        if (lru) {
+            cache.erase(lru->path);
+            // unlink in O(1)
+        }
+    }
+};
+",O(log n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double result = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) result *= val;
+    }
+    return result;
+}",O(n)
+"void eliminate_dead_code(FunctionGraph& function) {
+    std::stack<BasicBlock*> worklist;
+    std::unordered_set<BasicBlock*> live;
+    worklist.push(function.exit_block);
+    live.insert(function.exit_block);
+    while (!worklist.empty()) {
+        BasicBlock* block = worklist.top();
+        worklist.pop();
+        for (BasicBlock* pred : block->predecessors) {
+            if (live.find(pred) == live.end()) {
+                live.insert(pred);
+                worklist.push(pred);
+            }
+        }
+    }
+    for (BasicBlock* block : function.blocks) {
+        if (live.find(block) == live.end()) {
+            function.remove_block(block);
+        }
+    }
+}",O(V + E)
+"struct EdgePoint {
+    int x, y;
+    double magnitude;
+};
+std::vector<EdgePoint> find_edges(cv::Mat img, int threshold) {
+    std::vector<EdgePoint> edges;
+    for (int y = 1; y < img.rows - 1; y++) {
+        for (int x = 1; x < img.cols - 1; x++) {
+            cv::Scalar sobelx = cv::Sobel(img, CV_16S, 1, 0, 3);
+            cv::Scalar sobely = cv::Sobel(img, CV_16S, 0, 1, 3);
+            double mag = std::sqrt(sobelx[0] * sobelx[0] + sobely[0] * sobely[0]);
+            if (mag > threshold) {
+                EdgePoint p{ x, y, mag };
+                edges.push_back(p);
+            }
+        }
+    }
+    // Sort by magnitude descending
+    std::sort(edges.begin(), edges.end(), [](const EdgePoint& a, const EdgePoint& b) {
+        return a.magnitude > b.magnitude;
+    });
+    return edges;
+}",O(n log n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double accumulator = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) accumulator -= val;
+    }
+    return accumulator;
+}",O(n)
+"void resolve_collisions(std::vector<Entity*>& entities) {
+    // Naive O(n^2) broad-phase collision detection
+    for (size_t i = 0; i < entities.size(); ++i) {
+        Entity* a = entities[i];
+        for (size_t j = i + 1; j < entities.size(); ++j) {
+            Entity* b = entities[j];
+            // cheap AABB test
+            if (a->bounds.intersects(b->bounds)) {
+                // narrow-phase SAT test (expensive)
+                if (a->shape.isCollidingWith(b->shape)) {
+                    a->onCollision(b);
+                    b->onCollision(a);
+                }
+            }
+        }
+    }
+}
+",O(n^2)
+"int find_vertex_index_index(const std::vector<Packet>& data, int vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"std::vector<NetworkPacket> sort_packets(const std::vector<NetworkPacket>& packets) {
+    std::map<uint32_t, NetworkPacket> packet_map;
+    for (const auto& pkt : packets) {
+        uint32_t seq_num = ntohl(pkt.header.seq_num);
+        packet_map[seq_num] = pkt;
+    }
+    std::vector<NetworkPacket> ordered_packets;
+    for (const auto& pair : packet_map) {
+        ordered_packets.push_back(pair.second);
+    }
+    return ordered_packets;
+}",O(n log n)
+"inline void update_viewport_origin(glm::vec2& origin, const glm::vec2& camera_pos) {
+    // Clamp camera position to world bounds (fixed constants) – pure arithmetic, O(1)
+    const float WORLD_MIN_X = -5000.0f, WORLD_MAX_X = 5000.0f;
+    const float WORLD_MIN_Y = -3000.0f, WORLD_MAX_Y = 3000.0f;
+    origin.x = std::clamp(camera_pos.x, WORLD_MIN_X, WORLD_MAX_X);
+    origin.y = std::clamp(camera_pos.y, WORLD_MIN_Y, WORLD_MAX_Y);
+}",O(1)
+"int64_t update_velocity(int64_t velocity, int64_t delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 9.81);
+}",O(1)
+"double aggregate_stream_data(const std::deque<double>& stream) {
+    double sum = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) sum += val;
+    }
+    return sum;
+}",O(n)
+"inline void set_player_flag(uint32_t player_id, uint8_t flag_bit) {
+    // Each player has a 32‑bit flags field stored in a fixed‑size array
+    // Direct indexing -> O(1)
+    static uint32_t player_flags[1024];
+    uint32_t mask = 1u << (flag_bit & 31);
+    player_flags[player_id & 1023] |= mask;
+}",O(1)
+"struct Suggestion {
+    std::string word;
+    int frequency;
+    bool operator<(const Suggestion& other) const {
+        if (frequency != other.frequency) return frequency > other.frequency;
+        return word < other.word;
+    }
+};
+std::vector<std::string> autocomplete_suggestions(const std::vector<Suggestion>& suggestions) {
+    std::vector<Suggestion> sorted = suggestions;
+    std::sort(sorted.begin(), sorted.end());
+    std::vector<std::string> result;
+    for (const auto& s : sorted) {
+        result.push_back(s.word);
+        if (result.size() >= 10) break;
+    }
+    return result;
+}",O(n log n)
+"int find_timestamp_index(const std::vector<Record>& data, long long timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void discover_network_topology(int start_router_id, const std::unordered_map<int, std::vector<int>>& router_links) {
+    std::unordered_set<int> visited;
+    std::queue<int> q;
+    q.push(start_router_id);
+    visited.insert(start_router_id);
+    while (!q.empty()) {
+        int curr = q.front(); q.pop();
+        for (int neighbor : router_links.at(curr)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"void process_game_events(GameEvent* events, int count, GameState& state) {
+    for (int i = 0; i < count; ++i) {
+        switch (events[i].type) {
+            case EVENT_PLAYER_DAMAGE:
+                state.players[events[i].target_id].health -= events[i].damage;
+                if (state.players[events[i].target_id].health <= 0) {
+                    state.players[events[i].target_id].health = 0;
+                    state.players[events[i].target_id].state = STATE_DEAD;
+                }                
+                break;
+            case EVENT_ITEM_PICKUP:
+                state.players[events[i].player_id].inventory.add(events[i].item_id);
+                break;
+            case EVENT_ZONE_TRIGGER:
+                state.zones[events[i].zone_id].active_entities.push_back(events[i].entity_id);
+                break;
+        }
+        state.event_queue.dequeue();
+    }
+}",O(n)
+"void parse_whitespace(std::string& input) {
+    size_t start = 0;
+    while (start < input.size()) {
+        while (start < input.size() && std::isspace(static_cast<unsigned char>(input[start]))) ++start;
+        size_t end = start;
+        while (end < input.size() && !std::isspace(static_cast<unsigned char>(input[end]))) ++end;
+        input.replace(start, input.size() - start, input.substr(start, end - start));
+        if (start < input.size()) start = end;
+    }
+    input.erase(input.find_last_not_of(' ') + 1);
+}",O(n)
+"int find_target_id_index(const std::vector<Node>& data, size_t target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"double process_velocity(double velocity, double delta_time) {
+    if (velocity <= 0) return 0;
+    return velocity + (delta_time * 1.5);
+}",O(1)
+"double calculate_health(double health, double delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 2.0);
+}",O(1)
+"int calculate_stamina(int stamina, int delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 1.5);
+}",O(1)
+"void analyze_log_chain(std::vector<LogEntry>& logs, const std::unordered_map<int, std::vector<int>>& causal_links) {
+    std::unordered_map<int, int> impact_counter;
+    std::queue<int> q;
+    for (int i = 0; i < logs.size(); ++i) {
+        impact_counter[i] = 0;
+    }
+    for (int i = 0; i < logs.size(); ++i) {
+        for (int neighbor : causal_links.at(i)) {
+            impact_counter[neighbor]++;
+        }
+    }
+    for (int i = 0; i < logs.size(); ++i) {
+        if (impact_counter[i] == 0) {
+            q.push(i);
+        }
+    }
+    int processed = 0;
+    while (!q.empty()) {
+        int current = q.front(); q.pop();
+        processed++;
+        for (int neighbor : causal_links.at(current)) {
+            impact_counter[neighbor]--;
+            if (impact_counter[neighbor] == 0) {
+                q.push(neighbor);
+            }
+        }
+    }
+    assert(processed == logs.size());
+}",O(V + E)
+"void analyze_log_file(const std::vector<std::string>& lines, LogStats& stats) {
+    for (const auto& line : lines) {
+        if (line.find(""ERROR"") != std::string::npos) stats.error_count++;
+        else if (line.find(""WARNING"") != std::string::npos) stats.warning_count++;
+        else if (line.find(""DEBUG"") != std::string::npos) stats.debug_count++;
+        stats.total_chars += line.size();
+    }
+}",O(n)
+"int find_vertex_index_index(const std::vector<Node>& data, size_t vertex_index) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == vertex_index) return mid;
+        if (data[mid].id < vertex_index) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"void resolve_layout_conflicts(std::vector<UIWidget>& widgets) {
+    for (auto& w1 : widgets) {
+        for (auto& w2 : widgets) {
+            if (w1.id != w2.id && w1.bounds.intersects(w2.bounds)) {
+                w1.size.width *= 0.9;
+                w2.size.width *= 0.9;
+            }
+        }
+    }
+}",O(n^2)
+"void render_scene_graph(Node* root, const std::unordered_map<Node*, std::vector<Node*>>& children_map) {
+    std::stack<Node*> s;
+    std::unordered_set<Node*> visited;
+    s.push(root);
+    while (!s.empty()) {
+        Node* current = s.top(); s.pop();
+        if (visited.find(current) == visited.end()) {
+            current->render();
+            visited.insert(current);
+            for (Node* child : children_map.at(current))
+                s.push(child);
+        }
+    }
+}",O(V + E)
+bool validate_auth_token_header(const char* header) { return header[0] == 'B' && header[1] == 'E' && header[2] == 'A' && header[3] == 'R'; },O(1)
+"void check_particle_collisions(std::vector<Particle>& particles) {
+    for (size_t i = 0; i < particles.size(); ++i) {
+        for (size_t j = i + 1; j < particles.size(); ++j) {
+            float dx = particles[i].x - particles[j].x;
+            float dy = particles[i].y - particles[j].y;
+            float dist_sq = dx*dx + dy*dy;
+            float min_dist = particles[i].radius + particles[j].radius;
+            if (dist_sq < min_dist * min_dist) {
+                particles[i].vx = -particles[i].vx * 0.9f;
+                particles[i].vy = -particles[i].vy * 0.9f;
+                particles[j].vx = -particles[j].vx * 0.9f;
+                particles[j].vy = -particles[j].vy * 0.9f;
+                if (particles[i].decay > 0) particles[i].decay -= 0.1f;
+                if (particles[j].decay > 0) particles[j].decay -= 0.1f;
+            }
+        }
+    }
+}",O(n^2)
+"void sort_render_queue_by_depth(std::vector<RenderObject>& queue) {
+    std::sort(queue.begin(), queue.end(), [](const RenderObject& a, const RenderObject& b) {
+        return a.z_depth > b.z_depth;
+    });
+}",O(n log n)
+"int find_timestamp_index(const std::vector<Record>& data, size_t timestamp) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == timestamp) return mid;
+        if (data[mid].id < timestamp) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"int longest_common_prefix_length(const std::vector<std::string>& strings) {
+    if (strings.empty()) return 0;
+    auto min_len = std::min_element(strings.begin(), strings.end(), [](const auto& a, const auto& b) {
+        return a.size() < b.size();
+    })->size();
+    int low = 0, high = min_len;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        bool common = true;
+        for (size_t i = 1; i < strings.size(); ++i) {
+            if (strings[i].substr(0, mid) != strings[0].substr(0, mid)) {
+                common = false;
+                break;
+            } else if (strings[i].size() < mid) {
+                common = false;
+                break;
+            }
+        }
+        if (common) low = mid + 1;
+        else high = mid - 1;
+    }
+    return high;
+}",O(log n)
+"void update_inventory(int item_id, int quantity_change) {
+    for (auto& slot : player_inventory.slots) {
+        if (slot.item_id == item_id && slot.count < MAX_STACK) {
+            slot.count += quantity_change;
+            if (slot.count < 0) {
+                overflow_items.push_back({item_id, -slot.count});
+                slot.count = 0;
+            }
+            return;
+        }
+    }
+    for (auto& slot : player_inventory.slots) {
+        if (slot.item_id == 0) {
+            slot.item_id = item_id;
+            slot.count = quantity_change;
+            return;
+        }
+    }
+    inventory_overflow.push_back({item_id, quantity_change});
+}",O(n)
+"float compute_mana(float mana, float delta_time) {
+    if (mana <= 0) return 0;
+    return mana + (delta_time * 9.81);
+}",O(1)
+"uint64_t log_index_find_offset(int64_t target_timestamp, const std::vector<int64_t>& sorted_timestamps, const std::vector<uint64_t>& file_offsets) {
+    int low = 0, high = sorted_timestamps.size() - 1;
+    int result_idx = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (sorted_timestamps[mid] >= target_timestamp) {
+            result_idx = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    if (result_idx == -1) return 0;
+    return file_offsets[result_idx];
+}",O(log n)
+"void compress_file_huffman_preprocess(const std::vector<uint8_t>& input) {
+    std::unordered_map<uint8_t, int> freq;
+    for (uint8_t byte : input) {
+        ++freq[byte];
+    }
+    std::vector<std::pair<uint8_t, int>> freq_list(freq.begin(), freq.end());
+    std::sort(freq_list.begin(), freq_list.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second;
+    });
+    build_huffman_tree(freq_list);
+}",O(n log n)
+"void analyze_audio_buffer(const float* buffer, size_t sample_count) {
+    size_t i = 0;
+    while (i < sample_count) {
+        process_sample(buffer[i++], buffer[i++], buffer[i++]);
+    }
+}",O(n)
+"inline uint32_t fast_mod_pow2(uint32_t value, uint32_t mask) {
+    // Compute value % (2^k) where mask = (1<<k)-1 – bitwise AND, O(1)
+    return value & mask;
+}",O(1)
+"struct Product {
+    std::string category;
+    double price;
+    std::string name;
+};
+std::vector<Product> organize_inventory(const std::vector<Product>& items) {
+    std::vector<Product> sorted = items;
+    std::sort(sorted.begin(), sorted.end(), [](const Product& a, const Product& b) {
+        if (a.category != b.category) return a.category < b.category;
+        return a.price > b.price; // Expensive first within category
+    });
+    return sorted;
+}",O(n log n)
+bool is_power_of_two(size_t n) { return n && !(n & (n - 1)); },O(1)
+"void process_audio_mixing_channels(std::vector<AudioChannel>& channels) {
+    for (size_t i = 0; i < channels.size(); ++i) {
+        for (size_t j = 0; j < channels.size(); ++j) {
+            if (i == j) continue;
+            float interference = calculate_interference(channels[i].frequency, channels[j].frequency);
+            if (interference > 0.7f) {
+                channels[i].gain *= (1.0f - interference);
+                channels[j].gain *= (1.0f - interference);
+                if (channels[i].gain < 0.1f) channels[i].mute = true;
+                if (channels[j].gain < 0.1f) channels[j].mute = true;
+            }
+        }
+    }
+}",O(n^2)
+bool is_socket_ready(Socket& sock) { return sock.poll_flags & POLLIN; },O(1)
+"std::optional<std::size_t> find_next_prime_index(const std::vector<uint64_t>& primes,uint64_t n){auto it=std::upper_bound(primes.begin(),primes.end(),n);return static_cast<std::size_t>(it-primes.begin());// O(log n)}",O(log n)
+"size_t allocate_object_pool_chunk(ObjectPool& pool,size_t requested){auto it=std::lower_bound(pool.free_chunks.begin(),pool.free_chunks.end(),requested,[](size_t a,size_t b){return a<b;});if(it==pool.free_chunks.end())return 0;size_t idx=it-pool.free_chunks.begin();// O(log n)}",O(log n)
+"class BTreeIndex {
+public:
+    struct Transaction {
+        int user_id;
+        std::string timestamp;
+        double amount;
+    };
+    std::multiset<Transaction> data;
+    void insert(const Transaction& t) {
+        data.insert(t);
+    }
+};
+void build_index(BTreeIndex& idx, const std::vector<BTreeIndex::Transaction>& records) {
+    for (const auto& rec : records) {
+        idx.insert(rec);
+    }
+}
+// Usage is O(n log n) because insert into multiset is O(log n) and we do it n times",O(n log n)
+"int get_db_page_offset(int page_id, int page_size) { return page_id * page_size; }",O(1)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double sum = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) sum -= val;
+    }
+    return sum;
+}",O(n)
+"void crawl_web_index(const HtmlGraph& graph, const std::string& seed_url) {
+    std::queue<std::string> q;
+    std::unordered_set<std::string> indexed;
+    q.push(seed_url);
+    indexed.insert(seed_url);
+    while (!q.empty()) {
+        std::string current_url = q.front(); q.pop();
+        for (const auto& link : graph.get_links(current_url)) {
+            if (indexed.find(link) == indexed.end()) {
+                indexed.insert(link);
+                q.push(link);
+            }
+        }
+    }
+}",O(V + E)
+"void parse_xml_tags(const std::string& xml) {
+    std::stack<std::string> tags;
+    std::regex tag_re(""<(/?)([a-zA-Z0-9_]+)[^>]*>"");
+    auto words_begin = std::sregex_iterator(xml.begin(), xml.end(), tag_re);
+    auto words_end = std::sregex_iterator();
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string closing = match[1].str();
+        std::string tag_name = match[2].str();
+        if (closing.empty()) {
+            tags.push(tag_name);
+        } else if (!tags.empty() && tags.top() == tag_name) {
+            tags.pop();
+        }
+    }
+}",O(V + E)
+"#include <numeric>
+
+// Compute the median of a large stream using two heaps (O(log n) per insert)
+class MedianFinder {
+    std::priority_queue<int> lower; // max-heap
+    std::priority_queue<int, std::vector<int>, std::greater<int>> upper; // min-heap
+public:
+    void addNum(int num) {
+        if (lower.empty() || num <= lower.top()) lower.push(num);
+        else upper.push(num);
+        // Rebalance
+        if (lower.size() > upper.size() + 1) {
+            upper.push(lower.top()); lower.pop();
+        } else if (upper.size() > lower.size()) {
+            lower.push(upper.top()); upper.pop();
+        }
+    }
+    double findMedian() const {
+        if (lower.size() == upper.size()) return (lower.top() + upper.top()) / 2.0;
+        return lower.top();
+    }
+};
+",O(log n)
+"int64_t process_mana(int64_t mana, int64_t delta_time) {
+    if (mana <= 0) return 0;
+    return mana + (delta_time * 9.81);
+}",O(1)
+"int find_target_id_index(const std::vector<Node>& data, long long target_id) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == target_id) return mid;
+        if (data[mid].id < target_id) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"std::vector<int> find_network_route(int src, int dest, const std::unordered_map<int, std::vector<int>>& adjacency) {
+    std::queue<std::pair<int, std::vector<int>>> q;
+    std::unordered_set<int> visited;
+    q.push({src, {src}});
+    visited.insert(src);
+    while (!q.empty()) {
+        auto [current, path] = q.front(); q.pop();
+        if (current == dest) return path;
+        for (int neighbor : adjacency.at(current)) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                auto newPath = path;
+                newPath.push_back(neighbor);
+                q.push({neighbor, newPath});
+            }
+        }
+    }
+    return {};
+}",O(V + E)
+"void optimize_query_plan(const ExecutionNode* root) {
+    std::stack<const ExecutionNode*> stack;
+    stack.push(root);
+    while (!stack.empty()) {
+        const ExecutionNode* node = stack.top();
+        stack.pop();
+        if (node->type == ExecutionNode::TABLE_SCAN && node->children.size() > 1) {
+            node->reorder_joins();
+        }
+        for (auto it = node->children.rbegin(); it != node->children.rend(); ++it) {
+            stack.push(it->get());
+        }
+    }
+}",O(V + E)
+"void build_database_relationship_index(std::vector<Table>& tables, const std::vector<std::pair<int, int>>& fk_edges) {
+    std::unordered_map<int, std::vector<int>> graph;
+    for (const auto& edge : fk_edges) {
+        graph[edge.first].push_back(edge.second);
+    }
+    std::queue<Table*> q;
+    std::unordered_set<int> indexed;
+    for (auto& tbl : tables) {
+        if (tbl.hasForeignKeys() && indexed.find(tbl.id) == indexed.end()) {
+            q.push(&tbl);
+            indexed.insert(tbl.id);
+            while (!q.empty()) {
+                Table* current = q.front(); q.pop();
+                if (graph.find(current->id) != graph.end()) {
+                    for (int neighborId : graph[current->id]) {
+                        auto& neighbor = tables[neighborId];
+                        neighbor.indexed = true;
+                        if (indexed.find(neighborId) == indexed.end()) {
+                            q.push(&neighbor);
+                            indexed.insert(neighborId);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}",O(V + E)
+"inline void write_timestamp_to_log(std::ostream& out, uint64_t ts) {
+    // Write a 64‑bit timestamp as fixed‑width decimal (20 chars max) – constant loops (20 iterations)
+    char buf[21] = {0};
+    for (int i = 19; i >= 0; --i) {
+        buf[i] = static_cast<char>('0' + (ts % 10ULL));
+        ts /= 10ULL;
+    }
+    out.write(buf, 20);
+    out.put('\n');
+}",O(1)
+"std::vector<std::string> deduplicate_log_messages(const std::vector<std::string>& logs) {
+    std::set<std::string> unique_logs;
+    for (const auto& log : logs) {
+        unique_logs.insert(preprocess(log));
+    }
+    return std::vector<std::string>(unique_logs.begin(), unique_logs.end());
+}",O(n log n)
+"double aggregate_stream_data(const std::vector<float>& stream) {
+    double total = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) total += val;
+    }
+    return total;
+}",O(n)
+void parse_legacy_log_entry(char* buf) { if(buf[0]=='L'&&buf[1]=='O'&&buf[2]=='G') process(log_format_v1(buf+3)); else if(buf[0]=='D'&&buf[1]=='A'&&buf[2]=='T') process(log_format_v2(buf+4)); else assert(0); },O(1)
+"int find_max_co_occurrence(const std::vector<std::string>& docs, const std::string& term) {
+    int max_count = 0;
+    for (const auto& doc1 : docs) {
+        for (const auto& doc2 : docs) {
+            if (doc1.find(term) != std::string::npos && doc2.find(term) != std::string::npos) {
+                int count = 0;
+                // Simulate expensive co-occurrence check
+                for (size_t i = 0; i < doc1.length(); ++i) {
+                    for (size_t j = 0; j < doc2.length(); ++j) {
+                        if (doc1[i] == doc2[j]) ++count;
+                    }
+                }
+                max_count = std::max(max_count, count);
+            }
+        }
+    }
+    return max_count;
+}",O(n^2)
+"#include <unordered_map>
+#include <chrono>
+
+// Exponential backoff retry logic for network requests using binary search on backoff times
+class RetryPolicy {
+    std::vector<int> backoffTimes; // in milliseconds, sorted ascending
+public:
+    RetryPolicy() {
+        int t = 100; // start with 100ms
+        for (int i = 0; i < 10; ++i) {
+            backoffTimes.push_back(t);
+            t *= 2; // exponential growth
+        }
+    }
+    int getNextDelay(int attempt) {
+        if (attempt <= 0) return backoffTimes.front();
+        if (attempt >= (int)backoffTimes.size()) return backoffTimes.back();
+        return backoffTimes[attempt - 1];
+    }
+    // Binary search to find largest backoff less than current time
+    int findBestDelay() const {
+        std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+        int msNow = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+        int left = 0, right = backoffTimes.size() - 1;
+        int best = backoffTimes.front();
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (backoffTimes[mid] <= msNow) {
+                best = backoffTimes[mid];
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return best;
+    }
+};
+",O(log n)
+"void calculate_mutual_friendships(const std::vector<User>& network) {
+    for (size_t i = 0; i < network.size(); ++i) {
+        for (size_t j = i + 1; j < network.size(); ++j) {
+            if (has_mutual_friends(network[i], network[j])) {
+                recommend_friend_connection(network[i].id, network[j].id);
+            }
+        }
+    }
+}",O(n^2)
+"int64_t process_shield(int64_t shield, int64_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 1.5);
+}",O(1)
+"std::string get_http_status_message(int status_code) {
+    static const std::unordered_map<int, std::string> statuses = {
+        {200, ""OK""}, {404, ""Not Found""}, {500, ""Internal Server Error""}
+    };
+    auto it = statuses.find(status_code);
+    return (it != statuses.end()) ? it->second : ""Unknown"";
+}",O(1)
+"void double_loop_state_machine(std::vector<Event>& events) {
+    // Very messy O(n^2) state transition simulation
+    for (size_t i = 0; i < events.size(); ++i) {
+        State s = initial_state();
+        for (size_t step = 0; step < events.size(); ++step) {
+            s = transition(s, events[step]);
+            if (s.is_terminal()) break;
+        }
+        // store result per outer iteration
+        events[i].result = s;
+    }
+}
+",O(n^2)
+"int64_t adjust_position(int64_t position, int64_t delta_time) {
+    if (position <= 0) return 0;
+    return position + (delta_time * 0.98);
+}",O(1)
+"void naive_sql_like_filter(std::vector<std::unordered_map<std::string,std::string>>& rows,
+                              const std::string& pattern,
+                              std::vector<std::unordered_map<std::string,std::string>>& out) {
+    // O(n^2) because each row is compared against every other for LIKE semantics (self‑join)
+    for (size_t i = 0; i < rows.size(); ++i) {
+        for (size_t j = 0; j < rows.size(); ++j) {
+            if (i == j) continue;
+            const auto& a = rows[i];
+            const auto& b = rows[j];
+            // Very slow substring check on each column value
+            for (const auto& kv : a) {
+                auto it = b.find(kv.first);
+                if (it != b.end() && it->second.find(pattern) != std::string::npos) {
+                    out.push_back(a);
+                    break;
+                }
+            }
+        }
+    }
+}
+",O(n^2)
+"TreeNode* find_lowest_common_ancestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    while (root != nullptr) {
+        if (p->val < root->val && q->val < root->val) root = root->left;
+        else if (p->val > root->val && q->val > root->val) root = root->right;
+        else return root;
+    }
+    return nullptr;
+}",O(log n)
+"void update_database_index(const std::vector<std::string>& keys) {
+    for (const auto& key : keys) {
+        if (is_valid_key(key)) {
+            index[key] = generate_random_uuid();
+        }
+        else {
+            index.erase(key);
+        }
+    }
+}",O(n)
+"void optimize_memory_blocks(std::vector<MemoryBlock>& blocks) {
+    std::sort(blocks.begin(), blocks.end(), [](const MemoryBlock& a, const MemoryBlock& b) {
+        return a.size > b.size;
+    });
+    for (size_t i = 0; i + 1 < blocks.size(); ++i) {
+        if (blocks[i].size == blocks[i+1].size) {
+            merge_blocks(blocks[i], blocks[i+1]);
+        }
+    }
+}",O(n log n)
+"void parse_log_file(const std::string& filename) {
+    std::ifstream file(filename);
+    std::string line;
+    while (std::getline(file, line)) {
+        process_line(line);
+    }
+    file.close();
+}",O(n)
+"void apply_lerp_to_transform(float* target, float start, float end, float alpha) { target[0] = start + alpha * (end - start); }",O(1)
+"void processDatabaseTransactions(std::vector<Transaction>& txns) {
+    std::sort(txns.begin(), txns.end(), [](const Transaction& a, const Transaction& b) {
+        return a.timestamp < b.timestamp;
+    });
+    std::unordered_map<std::string, int> accountBalances;
+    for (const auto& txn : txns) {
+        accountBalances[txn.account] += txn.amount;
+    }
+}",O(n log n)
+"void renderFrame(std::vector<Object>& objects) {
+    std::sort(objects.begin(), objects.end(), [](const Object& a, const Object& b) {
+        return a.distanceToCamera < b.distanceToCamera;
+    });
+    for (const auto& obj : objects) {
+        applyTransformations(obj.matrix);
+        drawObject(obj);
+    }
+}",O(n log n)
+"int find_hash_key_index(const std::vector<Packet>& data, int hash_key) {
+    int low = 0, high = data.size() - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (data[mid].id == hash_key) return mid;
+        if (data[mid].id < hash_key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}",O(log n)
+"double aggregate_stream_data(const std::list<int>& stream) {
+    double sum = 0.0;
+    for (const auto& val : stream) {
+        if (val > 0) sum *= val;
+    }
+    return sum;
+}",O(n)
+"void compute_pairwise_edit_distance(const std::vector<std::string>& strs, std::vector<std::vector<int>>& dist) {
+    // O(n^2 * L^2) but we state O(n^2) for the outer loops
+    size_t n = strs.size();
+    dist.assign(n, std::vector<int>(n, 0));
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = i + 1; j < n; ++j) {
+            const std::string& a = strs[i];
+            const std::string& b = strs[j];
+            // classic DP edit distance (quadratic in length)
+            std::vector<std::vector<int>> dp(a.size()+1, std::vector<int>(b.size()+1));
+            for (size_t ai = 0; ai <= a.size(); ++ai) dp[ai][0] = ai;
+            for (size_t bj = 0; bj <= b.size(); ++bj) dp[0][bj] = bj;
+            for (size_t ai = 1; ai <= a.size(); ++ai) {
+                for (size_t bj = 1; bj <= b.size(); ++bj) {
+                    dp[ai][bj] = std::min({dp[ai-1][bj] + 1,
+                                          dp[ai][bj-1] + 1,
+                                          dp[ai-1][bj-1] + (a[ai-1]==b[bj-1]?0:1)});
+                }
+            }
+            dist[i][j] = dist[j][i] = dp[a.size()][b.size()];
+        }
+    }
+}
+",O(n^2)
+"void render_ui_element_overlaps(std::vector<UIElement>& elements) {
+    for (auto& elem1 : elements) {
+        for (auto& elem2 : elements) {
+            if (&elem1 == &elem2) continue;
+            if (elem1.bounds.intersects(elem2.bounds)) {
+                elem1.z_order = std::max(elem1.z_order, elem2.z_order + 1);
+                elem2.z_order = std::max(elem2.z_order, elem1.z_order + 1);
+                if (elem1.opacity > 0.8f && elem2.opacity > 0.8f) {
+                    elem1.opacity = 0.7f;
+                    elem2.opacity = 0.7f;
+                }
+            }
+        }
+    }
+}",O(n^2)
+"inline void rotate_sprite_90deg(uint8_t* pixel_buf, size_t stride) {
+    // Rotate a 2x2 sprite stored in a 4‑byte buffer – unrolled swaps, O(1)
+    uint8_t a = pixel_buf[0];
+    uint8_t b = pixel_buf[1];
+    uint8_t c = pixel_buf[stride];
+    uint8_t d = pixel_buf[stride + 1];
+    pixel_buf[0] = c;
+    pixel_buf[1] = a;
+    pixel_buf[stride] = d;
+    pixel_buf[stride + 1] = b;
+}",O(1)
+"void a_star_pathfinding(const Grid& grid, Node* start, Node* goal) {
+    std::priority_queue<Node*, std::vector<Node*>, NodeComparator> open;
+    std::unordered_set<Node*> closed;
+    open.push(start);
+    while (!open.empty()) {
+        Node* current = open.top();
+        open.pop();
+        if (current == goal) break;
+        closed.insert(current);
+        for (Node* neighbor : current->neighbors) {
+            if (closed.find(neighbor) == closed.end()) {
+                neighbor->g_score = current->g_score + neighbor->weight;
+                neighbor->f_score = neighbor->g_score + heuristic(neighbor, goal);
+                open.push(neighbor);
+            }
+        }
+    }
+}",O(V + E)
+"int texture_select_mip_level(float pixel_coverage, const std::vector<float>& mip_min_coverages) {
+    int low = 0, high = mip_min_coverages.size() - 1;
+    int selected_mip = 0;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (mip_min_coverages[mid] <= pixel_coverage) {
+            selected_mip = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return selected_mip;
+}",O(log n)
+"void process_render_pipeline(RenderGraph& graph) {
+    std::queue<RenderPass*> q;
+    std::unordered_map<RenderPass*, bool> processed;
+    q.push(graph.get_root_pass());
+    while (!q.empty()) {
+        auto pass = q.front(); q.pop();
+        if (!processed[pass]) {
+            processed[pass] = true;
+            pass->execute();
+            for (auto& input : pass->inputs) {
+                q.push(input.source_pass);
+            }
+        }
+    }
+}",O(V + E)
+"void naive_bubble_sort_with_logging(int arr[], int size) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+                cout << ""Swapped elements at "" << j << "" and "" << j+1 << endl;
+            }
+        }
+    }
+}",O(n^2)
+"int locate_nearest_enemy(const std::vector<Enemy>& enemies,const Player& player){auto it=std::lower_bound(enemies.begin(),enemies.end(),player.pos,[](const Enemy& e,const vec2& p){return e.dist(p)<0;});return it!=enemies.end()?static_cast<int>(it-enemies.begin()):-1; // O(log n)}",O(log n)
+"size_t adjust_health(size_t health, size_t delta_time) {
+    if (health <= 0) return 0;
+    return health + (delta_time * 1.5);
+}",O(1)
+"uint32_t process_shield(uint32_t shield, uint32_t delta_time) {
+    if (shield <= 0) return 0;
+    return shield + (delta_time * 2.0);
+}",O(1)
+"size_t count_database_key_occurrences(const std::vector<std::string>& sorted_keys, const std::string& target) {
+    auto first = std::lower_bound(sorted_keys.begin(), sorted_keys.end(), target);
+    auto last = std::upper_bound(first, sorted_keys.end(), target);
+    return last - first;
+}",O(log n)
+"void updateParticleSystem(std::vector<Particle>& particles) {
+    std::priority_queue<std::pair<float, Particle*>, std::vector<std::pair<float, Particle*>>, CompareDistanceToCamera> pq;
+    for (auto& p : particles) {
+        pq.emplace(calculateDistanceToCamera(p.position), &p);
+    }
+    while (!pq.empty() && pq.top().first > maxViewDistance) {
+        pq.pop();
+    }
+}",O(n log n)
+"int count_json_tokens(const std::string& json) {
+    int tokens = 0;
+    bool in_string = false;
+    for (size_t i = 0; i < json.size(); ++i) {
+        if (json[i] == '""') in_string = !in_string;
+        else if (!in_string && (json[i] == '{' || json[i] == '}' || json[i] == ',')) {
+            tokens++;
+        }
+    }
+    return tokens;
+}",O(n)
+"uint32_t calculate_checksum(const uint8_t* buffer, size_t size) {
+    uint32_t checksum = 0;
+    for (size_t i = 0; i < size; ++i) {
+        checksum ^= buffer[i];
+        checksum = (checksum << 5) | (checksum >> 27);
+    }
+    return checksum;
+}",O(n)
+"int64_t compute_stamina(int64_t stamina, int64_t delta_time) {
+    if (stamina <= 0) return 0;
+    return stamina + (delta_time * 9.81);
+}",O(1)
+"void find_similar_dna_sequences(const vector<string>& sequences) {
+    for (size_t i = 0; i < sequences.size(); ++i) {
+        for (size_t j = 0; j < sequences.size(); ++j) {
+            if (i == j) continue;
+            int mismatches = 0;
+            for (size_t k = 0; k < sequences[i].size() && k < sequences[j].size(); ++k) {
+                if (sequences[i][k] != sequences[j][k]) {
+                    mismatches++;
+                }
+            }
+            if (mismatches < 5) {
+                cout << ""Highly similar DNA sequences found"" << endl;
+            }
+        }
+    }
+}",O(n^2)
+"struct LogEntry { std::string timestamp_raw; std::string message; std::chrono::system_clock::time_point timestamp; };
+std::vector<LogEntry> parse_and_sort_logs(const std::vector<std::string>& raw_logs) {
+    std::vector<LogEntry> logs;
+    for (const auto& raw : raw_logs) {
+        LogEntry entry;
+        entry.timestamp_raw = raw.substr(0, 23);
+        entry.message = raw.substr(24);
+        try {
+            std::istringstream ss(entry.timestamp_raw);
+            ss >> std::get_time(&entry.tm, ""%Y-%m-%d %H:%M:%S"");
+            entry.timestamp = std::chrono::system_clock::from_time_t(std::mktime(&entry.tm));
+        } catch (...) {
+            entry.timestamp = std::chrono::system_clock::now();
+        }
+        logs.push_back(entry);
+    }
+    std::sort(logs.begin(), logs.end(), [](const LogEntry& a, const LogEntry& b) {
+        if (a.timestamp.time_since_epoch() == std::chrono::hours(0)) return true;
+        return a.timestamp < b.timestamp;
+    });
+    return logs;
+}",O(n log n)
